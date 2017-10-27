@@ -23,7 +23,7 @@ public class CS340ProgrammingProject {
         }
     }
     
-    static void printArray(String[] array){
+    static void printArray(Object[] array){
         for(int i = 0; i < array.length; i++){
             System.out.println(array[i]);
         }
@@ -44,6 +44,7 @@ public class CS340ProgrammingProject {
         int num_classes = 0;
         int num_teachers = 0;
         int num_students = 0;
+
         //We know the first line is the number of times
         //We know the first section is all times
         /*

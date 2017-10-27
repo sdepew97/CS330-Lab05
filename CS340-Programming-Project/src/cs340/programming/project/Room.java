@@ -1,15 +1,19 @@
 package cs340.programming.project;
 
+import java.util.ArrayList;
+
 public class Room {
     //data fields
     private String roomName;
     private int roomCapacity;
+    private ArrayList<Integer> timesOccupied;
 
     //constructor
     public Room(String roomName, int roomCapacity)
     {
         this.roomName = roomName;
         this.roomCapacity = roomCapacity;
+        this.timesOccupied = null;
     }
 
     //getter methods
@@ -23,6 +27,11 @@ public class Room {
         return this.roomCapacity;
     }
 
+    public ArrayList<Integer> getTimesOccupied()
+    {
+        return timesOccupied;
+    }
+
     //setter methods
     public void setRoomName(String roomName)
     {
@@ -32,5 +41,32 @@ public class Room {
     public void setRoomCapacity(int roomCapacity)
     {
         this.roomCapacity = roomCapacity;
+    }
+
+    public void setTimesOccupied(ArrayList<Integer> timesOccupied)
+    {
+        this.timesOccupied = timesOccupied;
+    }
+
+    //checks if the room is occupied at a certain time
+    public boolean isOccupied(int time)
+    {
+        return this.timesOccupied.contains(time);
+    }
+
+    //add time occupied
+    public void addOccupiedTime(int time)
+    {
+        this.timesOccupied.add(time);
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Room{" +
+                "Name:'" + roomName + '\'' +
+                ", Capacity:" + roomCapacity +
+                ", Times Occupied:" + CS340ProgrammingProject.printArray((Object) (timesOccupied.toArray())) +
+                '}';
     }
 }
