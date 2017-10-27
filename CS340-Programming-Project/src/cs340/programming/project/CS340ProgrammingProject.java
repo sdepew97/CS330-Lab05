@@ -6,6 +6,7 @@
 package cs340.programming.project;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -17,7 +18,7 @@ public class CS340ProgrammingProject {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         File constraints = new File("haverfordConstraints.txt");
         File student_prefs = new File("haverfordStudentPrefs.txt");
         Scanner constraints_scanner = new Scanner(constraints);
