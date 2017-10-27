@@ -1,10 +1,10 @@
 package cs340.programming.project;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Student {
     //data fields
-
     private int studentID;
     private Class[] preferencesList;
     private ArrayList<Class> enrolledClassList;
@@ -13,7 +13,7 @@ public class Student {
     {
         this.studentID = studentID;
         this.preferencesList = preferencesList;
-        this.enrolledClassList = null;
+        this.enrolledClassList = new ArrayList<Class>();
     }
 
     //getter methods
@@ -46,5 +46,14 @@ public class Student {
     public void setEnrolledClassList(ArrayList<Class> enrolledClassList)
     {
         this.enrolledClassList = enrolledClassList;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "studentID:" + studentID +
+                ", preferencesList:" + CS340ProgrammingProject.printArray(preferencesList) +
+                ", enrolledClassList:" + CS340ProgrammingProject.printArray(enrolledClassList.toArray()) +
+                '}';
     }
 }
