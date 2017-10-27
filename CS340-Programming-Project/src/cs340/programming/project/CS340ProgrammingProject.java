@@ -15,9 +15,6 @@ import java.lang.String;
  */
 public class CS340ProgrammingProject {
 
-    /**
-     * @param args the command line arguments
-     */
     //helper to read some number of lines repeatedly
     static void readLines(String[] array, Scanner scanner, int num_lines_to_read){
         for(int i = 0; i < num_lines_to_read; i++){
@@ -32,8 +29,8 @@ public class CS340ProgrammingProject {
     }
     
     public static void main(String[] args) throws FileNotFoundException {
-        File constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/CS340-Programming-Project/haverfordConstraints.txt");
-        File student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/CS340-Programming-Project/haverfordStudentPrefs.txt");
+        File constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
+        File student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
         Scanner constraints_scanner = new Scanner(constraints);
         Scanner student_prefs_scanner = new Scanner(student_prefs);
         int num_times = 0;
@@ -49,6 +46,7 @@ public class CS340ProgrammingProject {
         while(student_prefs_scanner.hasNext()){
             System.out.println(student_prefs_scanner.nextLine());
         }*/
+
         num_times = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]",""));
         String[] class_times = new String[num_times];
         readLines(class_times, constraints_scanner, num_times);
@@ -67,5 +65,6 @@ public class CS340ProgrammingProject {
         System.out.println(num_classes);
         System.out.println(num_teachers);
         printArray(class_times);
+
+        }
     }
-}
