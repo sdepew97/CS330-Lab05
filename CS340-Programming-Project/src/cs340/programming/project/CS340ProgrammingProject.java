@@ -25,25 +25,47 @@ public class CS340ProgrammingProject {
         }
     }
     
+    static void printArray(String[] array){
+        for(int i = 0; i < array.length; i++){
+            System.out.println(array[i]);
+        }
+    }
+    
     public static void main(String[] args) throws FileNotFoundException {
-        File constraints = new File("haverfordConstraints.txt");
-        File student_prefs = new File("haverfordStudentPrefs.txt");
+        File constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/CS340-Programming-Project/haverfordConstraints.txt");
+        File student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/CS340-Programming-Project/haverfordStudentPrefs.txt");
         Scanner constraints_scanner = new Scanner(constraints);
         Scanner student_prefs_scanner = new Scanner(student_prefs);
+        int num_times = 0;
+        int num_rooms = 0;
+        int num_classes = 0;
+        int num_teachers = 0;
         //We know the first line is the number of times
         //We know the first section is all times
-        int num_times = constraints_scanner.nextInt();
+        /*
+        while(constraints_scanner.hasNext()){
+            System.out.println(constraints_scanner.nextLine());
+        }
+        while(student_prefs_scanner.hasNext()){
+            System.out.println(student_prefs_scanner.nextLine());
+        }*/
+        num_times = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]",""));
         String[] class_times = new String[num_times];
         readLines(class_times, constraints_scanner, num_times);
         //We know the next section in Haverfordconstraints is the rooms
-        int num_rooms = constraints_scanner.nextInt();
+        num_rooms = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]",""));
         String[] rooms = new String[num_rooms];
         readLines(rooms, constraints_scanner, num_rooms);
         //We know the third section will be classes and the professors
         //teaching each class
-        int num_classes = constraints_scanner.nextInt();
+        num_classes = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]",""));
+        num_teachers = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]",""));
         String[] classprofs = new String[num_classes];
-        constraints_scanner.nextLine();
         readLines(classprofs, constraints_scanner, num_classes);
+        System.out.println(num_times);
+        System.out.println(num_rooms);
+        System.out.println(num_classes);
+        System.out.println(num_teachers);
+        printArray(class_times);
     }
 }
