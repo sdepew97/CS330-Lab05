@@ -58,6 +58,7 @@ public class CS340ProgrammingProject {
         while(student_prefs_scanner.hasNext()){
             System.out.println(student_prefs_scanner.nextLine());
         }*/
+        //Got parsing for only integers from stackoverflow
         num_times = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]",""));
         String[] class_times = new String[num_times];
         readLines(class_times, constraints_scanner, num_times);
@@ -77,6 +78,9 @@ public class CS340ProgrammingProject {
         num_teachers = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]",""));
         String[] classprofs = new String[num_classes];
         readLines(classprofs, constraints_scanner, num_classes);
+        for(String string : classprofs){
+            
+        }
         num_students = Integer.parseInt(student_prefs_scanner.nextLine().replaceAll("[\\D]",""));
         String[] student_pref_classes = new String[num_students];
         readLines(student_pref_classes,student_prefs_scanner,num_students);
