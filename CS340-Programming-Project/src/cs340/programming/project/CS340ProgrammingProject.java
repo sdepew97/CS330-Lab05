@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.lang.String;
+import static java.lang.System.in;
 /**
  *
  * @author Arthur
@@ -32,14 +33,22 @@ public class CS340ProgrammingProject {
     }
     
     public static void main(String[] args) throws FileNotFoundException {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please enter the full file path of the constraints file");
+        String filePath = input.nextLine();
         File constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/CS340-Programming-Project/haverfordConstraints.txt");
+        //File constraints = new File(filePath);
+        System.out.println("Please enter the full file path of the student preferences file");
+        filePath = input.nextLine();
         File student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/CS340-Programming-Project/haverfordStudentPrefs.txt");
+        //File student_prefs = new File(filePath);
         Scanner constraints_scanner = new Scanner(constraints);
         Scanner student_prefs_scanner = new Scanner(student_prefs);
         int num_times = 0;
         int num_rooms = 0;
         int num_classes = 0;
         int num_teachers = 0;
+        int num_students = 0;
         //We know the first line is the number of times
         //We know the first section is all times
         /*
@@ -54,18 +63,31 @@ public class CS340ProgrammingProject {
         readLines(class_times, constraints_scanner, num_times);
         //We know the next section in Haverfordconstraints is the rooms
         num_rooms = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]",""));
-        String[] rooms = new String[num_rooms];
-        readLines(rooms, constraints_scanner, num_rooms);
+        String[] room_strings = new String[num_rooms];
+        readLines(room_strings, constraints_scanner, num_rooms);
+        Room[] rooms = new Room[num_rooms];
+        for(int i = 0; i < num_rooms; i++){
+            Scanner room_scanner = new Scanner(room_strings[i]);
+            rooms[i] = new Room(room_scanner.next(),room_scanner.next());
+            
+        }
         //We know the third section will be classes and the professors
         //teaching each class
         num_classes = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]",""));
         num_teachers = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]",""));
         String[] classprofs = new String[num_classes];
         readLines(classprofs, constraints_scanner, num_classes);
+        num_students = Integer.parseInt(student_prefs_scanner.nextLine().replaceAll("[\\D]",""));
+        String[] student_pref_classes = new String[num_students];
+        readLines(student_pref_classes,student_prefs_scanner,num_students);
+        
+        /*
         System.out.println(num_times);
         System.out.println(num_rooms);
         System.out.println(num_classes);
         System.out.println(num_teachers);
+        */
         printArray(class_times);
+        printArray(student_pref_classes);
     }
 }
