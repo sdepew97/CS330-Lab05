@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.lang.String;
 import static java.lang.System.in;
+import java.util.ArrayList;
 /**
  *
  * @author Arthur
@@ -23,11 +24,23 @@ public class CS340ProgrammingProject {
         }
     }
     
-    static void printArray(Room[] array){
+    static String printArray(Object[] array){
+        String returnString = "";
+        System.out.println(array.length);
         for(int i = 0; i < array.length; i++){
-            System.out.println(array[i]);
+            returnString = returnString + array[i] + "\n";
+            //System.out.println(array[i]);
         }
+        return returnString;
     }
+    /*
+    static String printArrayList(ArrayList<Object> list){
+        String returnString;
+        for(int i = 0; i < list.size(); i++){
+            returnString = returnString + ""
+        }
+        return returnString;
+    }*/
     
     public static void main(String[] args) throws FileNotFoundException {
         Scanner input = new Scanner(System.in);
@@ -44,6 +57,7 @@ public class CS340ProgrammingProject {
         int num_classes = 0;
         int num_teachers = 0;
         int num_students = 0;
+
         //We know the first line is the number of times
         //We know the first section is all times
         /*
@@ -82,8 +96,8 @@ public class CS340ProgrammingProject {
         System.out.println(num_classes);
         System.out.println(num_teachers);
         */
-        printArray(class_times);
-        printArray(student_pref_classes);
-        printArray(rooms);
+        //System.out.println(printArray(class_times));
+        //System.out.println(printArray(student_pref_classes));
+        System.out.println((printArray(rooms)));
     }
 }
