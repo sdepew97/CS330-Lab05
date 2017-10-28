@@ -11,6 +11,7 @@ import java.util.Scanner;
 import java.lang.String;
 import static java.lang.System.in;
 import java.util.ArrayList;
+import java.util.PriorityQueue;
 /**
  *
  * @author Arthur
@@ -89,6 +90,7 @@ public class CS340ProgrammingProject {
         //where class_id is the id of the class, enrollment limit is per section
         //and a professor is listed as many times as sections that professor teaches
         readLines(classprofs, constraints_scanner, num_classes);
+        PriorityQueue<Class> class_queue = new PriorityQueue<Class>();
         Class[] classes = new Class[num_classes];
         for(int i = 0; i < num_classes; i++){
             Scanner class_scanner = new Scanner(classprofs[i]);
@@ -100,7 +102,7 @@ public class CS340ProgrammingProject {
                 prof_list.add(class_scanner.nextInt());
                 num_sections++;
             }
-            classes[i] = new Class(class_id, num_sections, prof_list, enrollment_limit);
+            class_queue.add(new Class(class_id, num_sections, prof_list, enrollment_limit));
         }
         num_students = Integer.parseInt(student_prefs_scanner.nextLine().replaceAll("[\\D]",""));
         String[] student_pref_classes = new String[num_students];
