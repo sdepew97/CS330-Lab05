@@ -1,12 +1,11 @@
 package cs340.programming.project;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Student {
     //data fields
     private int studentID;
-    private Class[] preferencesList;
+    private ArrayList<Class> preferencesList;
     private ArrayList<Class> enrolledClassList;
 
     public Student(int studentID, Class[] preferencesList)
