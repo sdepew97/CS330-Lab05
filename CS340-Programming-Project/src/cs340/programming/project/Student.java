@@ -1,15 +1,14 @@
 package cs340.programming.project;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Student {
     //data fields
     private int studentID;
-    private Class[] preferencesList;
+    private ArrayList<Integer> preferencesList;
     private ArrayList<Class> enrolledClassList;
 
-    public Student(int studentID, Class[] preferencesList)
+    public Student(int studentID, ArrayList<Integer> preferencesList)
     {
         this.studentID = studentID;
         this.preferencesList = preferencesList;
@@ -22,7 +21,7 @@ public class Student {
         return this.studentID;
     }
 
-    public Class[] getPreferencesList()
+    public ArrayList<Integer> getPreferencesList()
     {
         return this.preferencesList;
     }
@@ -38,7 +37,7 @@ public class Student {
         this.studentID = studentID;
     }
 
-    public void setPreferencesList(Class[] preferencesList)
+    public void setPreferencesList(ArrayList<Integer> preferencesList)
     {
         this.preferencesList = preferencesList;
     }
@@ -52,7 +51,7 @@ public class Student {
     public String toString() {
         return "Student{" +
                 "studentID:" + studentID +
-                ", preferencesList:" + CS340ProgrammingProject.printArray(preferencesList) +
+                ", preferencesList:" + CS340ProgrammingProject.printArray(preferencesList.toArray()) +
                 ", enrolledClassList:" + CS340ProgrammingProject.printArray(enrolledClassList.toArray()) +
                 '}';
     }
