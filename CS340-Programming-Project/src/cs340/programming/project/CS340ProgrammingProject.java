@@ -44,12 +44,14 @@ public class CS340ProgrammingProject {
     
     public static void main(String[] args) throws FileNotFoundException {
         Scanner input = new Scanner(System.in);
-        System.out.println("Please enter the full file path of the constraints file");
-        String filePath = input.nextLine();
-        File constraints = new File(filePath);
-        System.out.println("Please enter the full file path of the student preferences file");
-        filePath = input.nextLine();
-        File student_prefs = new File(filePath);
+        //System.out.println("Please enter the full file path of the constraints file");
+        //String filePath = input.nextLine();
+        //File constraints = new File(filePath);
+        //System.out.println("Please enter the full file path of the student preferences file");
+        //filePath = input.nextLine();
+        //File student_prefs = new File(filePath);
+        File constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/CS340-Programming-Project/haverfordConstraints.txt");
+        File student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/CS340-Programming-Project/haverfordStudentPrefs.txt");
         Scanner constraints_scanner = new Scanner(constraints);
         Scanner student_prefs_scanner = new Scanner(student_prefs);
         int num_times = 0;
@@ -95,14 +97,18 @@ public class CS340ProgrammingProject {
         for(int i = 0; i < num_classes; i++){
             Scanner class_scanner = new Scanner(classprofs[i]);
             int class_id = class_scanner.nextInt();
-            int enrollment_limit = class_scanner.nextInt();
+            int enrollment_limit = 50;
+            /*
+            if(class_scanner.hasNext()){
+                enrollment_limit = class_scanner.nextInt();
+            }*/
             ArrayList<Integer> prof_list = new ArrayList<Integer>();
             int num_sections = 0;
             while(class_scanner.hasNext()){
                 prof_list.add(class_scanner.nextInt());
                 num_sections++;
             }
-            class_queue.add(new Class(class_id, num_sections, prof_list, enrollment_limit));
+           class_queue.add(new Class(class_id, num_sections, prof_list, enrollment_limit));
         }
         num_students = Integer.parseInt(student_prefs_scanner.nextLine().replaceAll("[\\D]",""));
         String[] student_pref_classes = new String[num_students];
