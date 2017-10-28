@@ -26,7 +26,6 @@ public class CS340ProgrammingProject {
     
     static String printArray(Object[] array){
         String returnString = "";
-        System.out.println(array.length);
         for(int i = 0; i < array.length; i++){
             returnString = returnString + array[i] + "\n";
             //System.out.println(array[i]);
@@ -85,11 +84,37 @@ public class CS340ProgrammingProject {
         num_classes = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]", ""));
         num_teachers = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]", ""));
         String[] classprofs = new String[num_classes];
+        //For extensions, we assume the input is in the following format:
+        //class_id enrollmeent limit prof_id prof_id ...
+        //where class_id is the id of the class, enrollment limit is per section
+        //and a professor is listed as many times as sections that professor teaches
         readLines(classprofs, constraints_scanner, num_classes);
+        Class[] classes = new Class[num_classes];
+        for(int i = 0; i < num_classes; i++){
+            Scanner class_scanner = new Scanner(classprofs[i]);
+            int class_id = class_scanner.nextInt();
+            int enrollment_limit = class_scanner.nextInt();
+            ArrayList<Integer> prof_list = new ArrayList<Integer>();
+            int num_sections = 0;
+            while(class_scanner.hasNext()){
+                prof_list.add(class_scanner.nextInt());
+                num_sections++;
+            }
+            classes[i] = new Class(class_id, num_sections, prof_list, enrollment_limit);
+        }
         num_students = Integer.parseInt(student_prefs_scanner.nextLine().replaceAll("[\\D]",""));
         String[] student_pref_classes = new String[num_students];
         readLines(student_pref_classes, student_prefs_scanner, num_students);
-        
+        Student[] students = new Student[num_students];
+        for(int i = 0; i < num_students; i++){
+            Scanner student_scanner = new Scanner(student_pref_classes[i]);
+            int student_id = student_scanner.nextInt();
+            ArrayList<Integer> pref_classes = new ArrayList<Integer>();
+            while(student_scanner.hasNext()){
+                pref_classes.add(student_scanner.nextInt());
+            }
+            students[i] = new Student(student_id, pref_classes);
+        }
         /*
         System.out.println(num_times);
         System.out.println(num_rooms);
@@ -99,5 +124,6 @@ public class CS340ProgrammingProject {
         //System.out.println(printArray(class_times));
         //System.out.println(printArray(student_pref_classes));
         System.out.println((printArray(rooms)));
+        System.out.println((printArray(students)));
     }
 }
