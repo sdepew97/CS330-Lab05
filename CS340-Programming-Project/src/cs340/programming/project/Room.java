@@ -2,7 +2,7 @@ package cs340.programming.project;
 
 import java.util.ArrayList;
 
-public class Room {
+public class Room implements Comparable<Room>{
     //data fields
     private String roomName;
     private int roomCapacity;
@@ -13,7 +13,7 @@ public class Room {
     {
         this.roomName = roomName;
         this.roomCapacity = roomCapacity;
-        this.timesOccupied = null;
+        this.timesOccupied = new ArrayList<>();
     }
 
     //getter methods
@@ -58,6 +58,13 @@ public class Room {
     public void addOccupiedTime(int time)
     {
         this.timesOccupied.add(time);
+    }
+
+    @Override
+    public int compareTo(Room room)
+    {
+        //order the values based off the room capacities in the Binary Search Tree
+        return this.getRoomCapacity() - room.getRoomCapacity();
     }
 
     @Override

@@ -3,7 +3,7 @@ package cs340.programming.project;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Class {
+public class Class implements Comparable<Class>{
     //data fields
     private int classID;
     private int numberSections;
@@ -100,6 +100,12 @@ public class Class {
     public void enrollStudent(Student student)
     {
         this.enrolledStudents.add(student);
+    }
+
+    @Override
+    public int compareTo(Class c)
+    {
+        return this.getNumberSections()*this.getEnrollmentLimit() - c.getNumberSections()*c.getEnrollmentLimit();
     }
 
     @Override
