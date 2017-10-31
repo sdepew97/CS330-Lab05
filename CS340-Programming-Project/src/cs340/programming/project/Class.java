@@ -3,17 +3,18 @@ package cs340.programming.project;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Class implements Comparable<Class>{
+public class Class /*implements Comparable<Class>*/{
     //data fields
     private int classID;
     private int numberSections;
     private String[] sectionTimes; //we use the section number as an index into the array to get the time of that section
     private String[] sectionRooms;
-    private ArrayList<Integer> professors;
+    private Integer[] professors; //who can teach the sections
     private int enrollmentLimit;
     private ArrayList<Student> enrolledStudents;
+    private int[] whoTeachesSection;
 
-    public Class(int classID, int numberSections, ArrayList<Integer> professors, int enrollmentLimit)
+    public Class(int classID, int numberSections, Integer[] professors, int enrollmentLimit)
     {
         this.classID = classID;
         this.numberSections = numberSections;
@@ -22,6 +23,7 @@ public class Class implements Comparable<Class>{
         this.professors = professors;
         this.enrollmentLimit = enrollmentLimit;
         this.enrolledStudents = new ArrayList<>();
+        this.whoTeachesSection = new int[numberSections];
     }
 
     //getter methods
@@ -45,7 +47,7 @@ public class Class implements Comparable<Class>{
         return sectionRooms;
     }
 
-    public ArrayList<Integer> getProfessors()
+    public Integer[] getProfessors()
     {
         return professors;
     }
@@ -81,7 +83,7 @@ public class Class implements Comparable<Class>{
         this.sectionRooms = sectionRooms;
     }
 
-    public void setProfessors(ArrayList<Integer> professors)
+    public void setProfessors(Integer[] professors)
     {
         this.professors = professors;
     }
@@ -96,17 +98,24 @@ public class Class implements Comparable<Class>{
         this.enrolledStudents = enrolledStudents;
     }
 
+    public void assignProfessor(int section, int professor)
+    {
+        this.whoTeachesSection[section] = professor;
+    }
+
     //method to enroll a student in a class
     public void enrollStudent(Student student)
     {
         this.enrolledStudents.add(student);
     }
 
+    /*
     @Override
     public int compareTo(Class c)
     {
         return this.getNumberSections()*this.getEnrollmentLimit() - c.getNumberSections()*c.getEnrollmentLimit();
     }
+    */
 
     @Override
     public String toString() {
@@ -115,7 +124,7 @@ public class Class implements Comparable<Class>{
                 ", numberSections:" + numberSections +
                 ", sectionTimes:" + CS340ProgrammingProject.printArray(sectionTimes) +
                 ", sectionRooms:" + CS340ProgrammingProject.printArray(sectionRooms) +
-                ", professors:" + CS340ProgrammingProject.printArray(professors.toArray()) +
+                ", professors:" + CS340ProgrammingProject.printArray(professors) +
                 ", enrollmentLimit:" + enrollmentLimit +
                 ", enrolledStudents:" + enrolledStudents +
                 '}';

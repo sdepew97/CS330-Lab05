@@ -113,6 +113,8 @@ public class CS340ProgrammingProject {
            class_queue.add(new Class(class_id, num_sections, prof_list, enrollment_limit));
         }
         num_students = Integer.parseInt(student_prefs_scanner.nextLine().replaceAll("[\\D]",""));
+
+        //process data from student prefs file
         String[] student_pref_classes = new String[num_students];
         readLines(student_pref_classes, student_prefs_scanner, num_students);
         Student[] students = new Student[num_students];
@@ -125,6 +127,20 @@ public class CS340ProgrammingProject {
             }
             students[i] = new Student(student_id, pref_classes);
         }
+
+        //Fill classes with necessary information
+        Class[] classesWithInformation = new Class[class_queue.size()];
+        Class dequeue;
+        while(!class_queue.isEmpty()) {
+            dequeue = class_queue.poll(); //never going to be null
+
+            //if(/*professor available to teach class*/)
+            //{
+            //dequeue.assignProfessor();
+            //}
+
+        }
+
         /*
         System.out.println(num_times);
         System.out.println(num_rooms);
