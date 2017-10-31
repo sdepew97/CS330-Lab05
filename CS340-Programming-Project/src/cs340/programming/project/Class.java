@@ -8,8 +8,8 @@ public class Class /*implements Comparable<Class>*/{
     private int classID;
     private int numberSections;
     private String[] sectionTimes; //we use the section number as an index into the array to get the time of that section
-    private String[] sectionRooms;
-    private Integer[] professors; //who can teach the sections
+    private ArrayList<String> sectionRooms;
+    private ArrayList<Integer> professors; //who can teach the sections
     private int enrollmentLimit;
     private ArrayList<Student> enrolledStudents;
     private int[] whoTeachesSection;
@@ -42,7 +42,7 @@ public class Class /*implements Comparable<Class>*/{
         return sectionTimes;
     }
 
-    public String[] getSectionRooms()
+    public ArrayList<String> getSectionRooms()
     {
         return sectionRooms;
     }
