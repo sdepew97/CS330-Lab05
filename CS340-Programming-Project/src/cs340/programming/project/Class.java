@@ -14,12 +14,12 @@ public class Class /*implements Comparable<Class>*/{
     private ArrayList<Student> enrolledStudents;
     private int[] whoTeachesSection;
 
-    public Class(int classID, int numberSections, Integer[] professors, int enrollmentLimit)
+    public Class(int classID, int numberSections, ArrayList<Integer> professors, int enrollmentLimit)
     {
         this.classID = classID;
         this.numberSections = numberSections;
         this.sectionTimes = new String[numberSections];
-        this.sectionRooms = new String[numberSections];
+        this.sectionRooms = new ArrayList<>();
         this.professors = professors;
         this.enrollmentLimit = enrollmentLimit;
         this.enrolledStudents = new ArrayList<>();
@@ -47,7 +47,7 @@ public class Class /*implements Comparable<Class>*/{
         return sectionRooms;
     }
 
-    public Integer[] getProfessors()
+    public ArrayList<Integer> getProfessors()
     {
         return professors;
     }
@@ -78,12 +78,12 @@ public class Class /*implements Comparable<Class>*/{
         this.sectionTimes = sectionTimes;
     }
 
-    public void setSectionRooms(String[] sectionRooms)
+    public void setSectionRooms(ArrayList<String> sectionRooms)
     {
         this.sectionRooms = sectionRooms;
     }
 
-    public void setProfessors(Integer[] professors)
+    public void setProfessors(ArrayList<Integer> professors)
     {
         this.professors = professors;
     }
@@ -123,8 +123,8 @@ public class Class /*implements Comparable<Class>*/{
                 "classID:" + classID +
                 ", numberSections:" + numberSections +
                 ", sectionTimes:" + CS340ProgrammingProject.printArray(sectionTimes) +
-                ", sectionRooms:" + CS340ProgrammingProject.printArray(sectionRooms) +
-                ", professors:" + CS340ProgrammingProject.printArray(professors) +
+                ", sectionRooms:" + CS340ProgrammingProject.printArray(sectionRooms.toArray()) +
+                ", professors:" + CS340ProgrammingProject.printArray(professors.toArray()) +
                 ", enrollmentLimit:" + enrollmentLimit +
                 ", enrolledStudents:" + enrolledStudents +
                 '}';
