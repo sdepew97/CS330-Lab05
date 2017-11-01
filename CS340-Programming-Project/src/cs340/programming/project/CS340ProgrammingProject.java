@@ -131,13 +131,20 @@ public class CS340ProgrammingProject {
         //Fill classes with necessary information
         Class[] classesWithInformation = new Class[class_queue.size()];
         Class dequeue;
+        int numStart;
         while(!class_queue.isEmpty()) {
             dequeue = class_queue.poll(); //never going to be null
+            numStart = dequeue.getSectionRooms().size();
 
             //if(/*professor available to teach class*/)
             //{
             //dequeue.assignProfessor();
             //}
+
+            while(dequeue.getSectionRooms().size()==numStart)
+            {
+
+            }
 
         }
 
