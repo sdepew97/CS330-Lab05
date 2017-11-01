@@ -42,8 +42,8 @@ public class CS340ProgrammingProject {
     private static Room[] rooms;
     private static Student[] students;
     private static String[] times;
-    private static HashMap<String, String[]> preferedTimes = new HashMap<>();
-    private static HashMap<Class, String[]> whoCanTeach = new HashMap();
+    private static HashMap<Integer, Integer[]> preferedTimes = new HashMap<>();
+    private static HashMap<Integer, ArrayList<Integer>> teachingTimes = new HashMap();
 
     //Binary Search Tree to store room objects ordered by capacity
     private static BST<Room> roomBST;
@@ -130,20 +130,20 @@ public class CS340ProgrammingProject {
 
         //Fill classes with necessary information
         Class[] classesWithInformation = new Class[class_queue.size()];
-        Class dequeue;
-        int numStart;
+        Class currentClass;
+        int numSections;
         while(!class_queue.isEmpty()) {
-            dequeue = class_queue.poll(); //never going to be null
-            numStart = dequeue.getSectionRooms().size();
+            currentClass = class_queue.poll(); //never going to be null
+            numSections = currentClass.getNumberSections();
 
             //if(/*professor available to teach class*/)
             //{
             //dequeue.assignProfessor();
             //}
 
-            while(dequeue.getSectionRooms().size()==numStart)
+            while(currentClass.getSectionRooms().size() < numSections)
             {
-
+                
             }
 
         }
