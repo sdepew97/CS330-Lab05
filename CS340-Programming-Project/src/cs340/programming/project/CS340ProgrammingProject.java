@@ -142,6 +142,9 @@ public class CS340ProgrammingProject {
             //}
 
             while(dequeue.getSectionRooms().size()==numStart)
+            {
+
+            }
 
         }
 
