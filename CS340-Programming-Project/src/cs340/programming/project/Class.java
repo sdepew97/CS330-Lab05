@@ -3,11 +3,11 @@ package cs340.programming.project;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class Class implements Comparable<Class>{
+public class Class /*implements Comparable<Class>*/{
     //data fields
     private int classID;
     private int numberSections;
-    private String[] sectionTimes; //we use the section number as an index into the array to get the time of that section
+    private Integer[] sectionTimes; //we use the section number as an index into the array to get the time of that section
     private ArrayList<String> sectionRooms;
     private ArrayList<Integer> professors; //who can teach the sections
     private int enrollmentLimit;
@@ -18,7 +18,8 @@ public class Class implements Comparable<Class>{
     {
         this.classID = classID;
         this.numberSections = numberSections;
-        this.sectionTimes = new String[numberSections];
+        this.sectionTimes = new Integer[numberSections];
+        Arrays.fill(this.sectionTimes, -1); //start all values at -1
         this.sectionRooms = new ArrayList<>();
         this.professors = professors;
         this.enrollmentLimit = enrollmentLimit;
@@ -37,7 +38,7 @@ public class Class implements Comparable<Class>{
         return numberSections;
     }
 
-    public String[] getSectionTimes()
+    public Integer[] getSectionTimes()
     {
         return sectionTimes;
     }
@@ -73,9 +74,14 @@ public class Class implements Comparable<Class>{
         this.numberSections = numberSections;
     }
 
-    public void setSectionTimes(String[] sectionTimes)
+    public void setSectionTimes(Integer[] sectionTimes)
     {
         this.sectionTimes = sectionTimes;
+    }
+
+    public void setSingleSectionTime(int index, Integer sectionTime)
+    {
+        this.sectionTimes[index] = sectionTime;
     }
 
     public void setSectionRooms(ArrayList<String> sectionRooms)
@@ -109,13 +115,13 @@ public class Class implements Comparable<Class>{
         this.enrolledStudents.add(student);
     }
 
-    
+    /*
     @Override
     public int compareTo(Class c)
     {
         return this.getNumberSections()*this.getEnrollmentLimit() - c.getNumberSections()*c.getEnrollmentLimit();
     }
-    
+    */
 
     @Override
     public String toString() {

@@ -7,12 +7,10 @@ package cs340.programming.project;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 import java.lang.String;
 import static java.lang.System.in;
-import java.util.ArrayList;
-import java.util.PriorityQueue;
+
 /**
  *
  * @author Arthur, Amanda, and Sarah
@@ -132,18 +130,39 @@ public class CS340ProgrammingProject {
         Class[] classesWithInformation = new Class[class_queue.size()];
         Class currentClass;
         int numSections;
+        int currentProfessor;
         while(!class_queue.isEmpty()) {
             currentClass = class_queue.poll(); //never going to be null
             numSections = currentClass.getNumberSections();
 
-            //if(/*professor available to teach class*/)
-            //{
-            //dequeue.assignProfessor();
-            //}
+            for(int i=0; i<numSections; i++) {
+                //if(/*professor available to teach class*/)
+                //{
+                //dequeue.assignProfessor();
 
-            while(currentClass.getSectionRooms().size() < numSections)
-            {
-                
+                //}
+
+                while (currentClass.getSectionRooms().size() < i+1) {
+
+                    for (int j = 0; j < (preferedTimes.get(currentClass.getProfessors().get(i))).length; j++)
+                    {
+                        //if teaching time is available, so not yet teaching at this time
+                        if(!teachingTimes.get(currentClass.getProfessors().get(i)).contains(preferedTimes.get(currentClass.getProfessors())[j])))
+                        {
+                            currentClass.setSingleSectionTime(i, preferedTimes.get(currentClass.getProfessors())[j]);
+                        }
+
+                        //mark time as tried
+                    }
+
+                    //check if time was actually assigned (filled with -1 at the start which is then replaced with a time
+                    if(currentClass.getSectionTimes()[i]!=-1)
+                    {
+                        //pick an entry into the times array at random
+                        Random random = new Random();
+                        random.nextInt()
+                    }
+                }
             }
 
         }
