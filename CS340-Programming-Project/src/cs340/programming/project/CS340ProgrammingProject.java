@@ -42,7 +42,7 @@ public class CS340ProgrammingProject {
     private static Room[] rooms;
     private static Student[] students;
     private static String[] times;
-    private static HashMap<Integer, Integer[]> preferedTimes = new HashMap<>();
+    private static HashMap<Integer, ArrayList<Integer>> preferredTimes = new HashMap<>();
     private static HashMap<Integer, ArrayList<Integer>> teachingTimes = new HashMap();
 
     //Binary Search Tree to store room objects ordered by capacity
@@ -111,6 +111,16 @@ public class CS340ProgrammingProject {
                 num_sections++;
             }
            class_queue.add(new Class(class_id, num_sections, prof_list, enrollment_limit));
+        }
+        while(constraints_scanner.hasNext()){
+            String profPreferredTimes = constraints_scanner.nextLine();
+            Scanner prof_scanner = new Scanner(profPreferredTimes);
+            int profId = prof_scanner.nextInt();
+            ArrayList<Integer> prefTimes = new ArrayList<Integer>();
+            while(prof_scanner.hasNext()){
+                prefTimes.add(prof_scanner.nextInt());
+            }
+            preferredTimes.put(profId,prefTimes);
         }
         num_students = Integer.parseInt(student_prefs_scanner.nextLine().replaceAll("[\\D]",""));
 
