@@ -34,14 +34,16 @@ public class CS340ProgrammingProject {
     //data structures for information
     private static String[] class_times;
     private static PriorityQueue<Class> class_queue = new PriorityQueue<>();
-    private static Class[] classes;
+    private static Class[] classes; //array that holds class objects
     private static String[] room_strings;
     private static String[] classprofs;
-    private static Room[] rooms;
-    private static Student[] students;
+    private static Room[] rooms; //array that holds room objects
+    private static Student[] students; //array that holds student objects
     private static String[] times;
+    //dictionary: key is professor id, value is arrayList of string times
     private static HashMap<Integer, ArrayList<Integer>> preferredTimes = new HashMap<>();
-    private static HashMap<Integer, ArrayList<Integer>> teachingTimes = new HashMap<>();
+   //dictionary: key is professor id, value is arrayList of times professor is teaching
+    private static HashMap<Integer, ArrayList<Integer>> teachingTimes = new HashMap();
 
     //Binary Search Tree to store room objects ordered by capacity
     private static BST<Room> roomBST;
@@ -80,6 +82,7 @@ public class CS340ProgrammingProject {
             rooms[i] = current;
             roomBST.add(current);
         }
+        Arrays.sort(rooms);
 
         //We know the third section will be classes and the professors
         //teaching each class
@@ -145,21 +148,33 @@ public class CS340ProgrammingProject {
             currentClass = class_queue.poll(); //never going to be null
             numSections = currentClass.getNumberSections();
 
-            for (int i = 0; i < numSections; i++) {
+            for(int i=0; i<numSections; i++) {
                 //if(/*professor available to teach class*/)
                 //{
                 //dequeue.assignProfessor();
 
                 //}
 
-                //while room has not yet been assigned
-                while (currentClass.getSectionRooms().size() < i + 1) {
-                    //while there is a time not yet tried for the professor
-                    for (int j = 0; j < (preferredTimes.get(currentClass.getProfessors().get(i))).size(); j++) {
-                        //if teaching time is available, so not yet teaching at this time
-                        if (!teachingTimes.get(currentClass.getProfessors().get(i)).contains(preferredTimes.get(currentClass.getProfessors()).get(j)))
+                while (currentClass.getSectionRooms().size() < i+1) {
+
+                    for (int j = 0; j < (preferredTimes.get(currentClass.getProfessors().get(i))).size(); j++)
+                    {
+                        //if teaching time is available, so professor not yet teaching at this time
+                        int currentTime = preferredTimes.get(currentClass.getProfessors()).get(j);
+                        if(!teachingTimes.get(currentClass.getProfessors().get(i)).contains(currentTime));
                         {
-                            currentClass.setSingleSectionTime(i, preferredTimes.get(currentClass.getProfessors()).get(j));
+                            boolean hasRoom = false;
+                            int currentTry = findRoom(currentClass.getEnrollmentLimit(),rooms);
+                            Room room = rooms[currentTry];
+                            while(!hasRoom){
+                                if(!room.isOccupied(currentTime)){
+                                    currentClass.setSingleSectionTime(i, currentTime);
+                                    currentClass.setSingleSectionRoom(i, room.getRoomName());
+                                    hasRoom = true;
+                                }
+                                room = rooms[++currentTry];
+                            }
+
                         }
 
                         //mark time as tried
@@ -169,19 +184,18 @@ public class CS340ProgrammingProject {
                     while (currentClass.getSectionTimes()[i] == -1) {
                         //pick an entry into the times array at random
                         Random random = new Random();
-                        int index = random.nextInt(class_times.length);
-
-                        //check professor is available
-                        if (!teachingTimes.get(currentClass.getProfessors().get(i)).contains(preferredTimes.get(currentClass.getProfessors()).get(index))) {
-                            //assign the time that we picked at random as the class section time
-                            currentClass.getSectionTimes()[i] = index;
-                            break;
+                        random.nextInt();
+                        boolean hasRoom = false;
+                        int currentTry = findRoom(currentClass.getEnrollmentLimit(),rooms);
+                        Room room = rooms[currentTry];
+                        while(!hasRoom){
+                            if(!room.isOccupied(currentTime)){
+                                currentClass.setSingleSectionTime(i, currentTime);
+                                currentClass.setSingleSectionRoom(i, room.getRoomName());
+                                hasRoom = true;
+                            }
+                            room = rooms[++currentTry];
                         }
-                    }
-
-                    //assign a classroom of the size if it is available
-                    if () {
-
                     }
                 }
             }
@@ -226,6 +240,26 @@ public class CS340ProgrammingProject {
             //System.out.println(array[i]);
         }
         return returnString;
+    }
+
+    static int findRoom(int capacity, Room[] rooms){
+        int length = rooms.length;
+        int start = 0;
+        int end = rooms.length - 1;
+        int index = (start + end)/2;
+        int currentCapacity = rooms[index].getRoomCapacity();
+        while(currentCapacity != capacity){
+            if(end - start == 1){
+                return end;
+            }
+            if(currentCapacity < capacity){
+                start = index;
+            }
+            else{
+                end = index;
+            }
+        }
+        return index;
     }
 
     //Allow the user to input the paths of the files to read
