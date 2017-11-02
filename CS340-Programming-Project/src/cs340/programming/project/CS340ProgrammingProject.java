@@ -55,10 +55,10 @@ public class CS340ProgrammingProject {
         //inputFiles(constraints, student_prefs);
 
         //Paths of the files to read
-        //constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/haverfordConstraints.txt");
-        //student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/haverfordStudentPrefs.txt");
-        constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
-        student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
+        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/haverfordConstraints.txt");
+        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/haverfordStudentPrefs.txt");
+        //constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
+        //student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
         constraints_scanner = new Scanner(constraints);
         student_prefs_scanner = new Scanner(student_prefs);
 
@@ -248,14 +248,17 @@ public class CS340ProgrammingProject {
                     students[i].enrollStudent(classToEnroll, 0);
 
                     //list student as enrolled in class
-                    findClass(classToEnroll,classes).enrollStudent(students[i].getStudentID(), 0);
+                    Class foundClass = findClass(classToEnroll,classes);
+                    if(foundClass != null){
+                        foundClass.enrollStudent(students[i].getStudentID(), 0);
+                    }
                 }
                 //student is already enrolled in one or more classes
                 else {
                     //go through list of classes student current enrolled in
                     for (int k = 0; k < currentlyEnrolled.size(); k++) {
                         Integer timeToCheck = currentlyEnrolled.get(k);
-                        Class wantToEnroll = classes[classToEnroll];
+                        Class wantToEnroll = findClass(classToEnroll,classes);
                         //check for time conflict
                         for (int l = 0; l < wantToEnroll.getSectionTimes().length; l++) {
                             if (!(wantToEnroll.getSectionTimes()[l].equals(timeToCheck))) {
@@ -263,7 +266,7 @@ public class CS340ProgrammingProject {
                                 students[i].enrollStudent(classToEnroll, l);
 
                                 //list student as enrolled in class
-                                classes[classToEnroll].enrollStudent(students[i].getStudentID(), l);
+                                wantToEnroll.enrollStudent(students[i].getStudentID(), l);
                             }
                         }
                     }

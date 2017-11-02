@@ -25,6 +25,9 @@ public class Class implements Comparable<Class>{
         this.enrollmentLimit = enrollmentLimit;
         this.enrolledStudents = new ArrayList[numberSections];
         this.whoTeachesSection = new int[numberSections];
+        for(int i = 0; i < numberSections; i++){
+            enrolledStudents[i] = new ArrayList<Integer>();
+        }
     }
 
     //getter methods
