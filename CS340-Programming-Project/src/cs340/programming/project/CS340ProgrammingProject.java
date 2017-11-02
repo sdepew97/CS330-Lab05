@@ -154,14 +154,14 @@ public class CS340ProgrammingProject {
                 //dequeue.assignProfessor();
 
                 //}
-
-                while (currentClass.getSectionRooms().length < i+1) {
-
-                    for (int j = 0; j < (preferredTimes.get(currentClass.getProfessors().get(i))).size(); j++)
+                boolean scheduledSection = false;
+                while (!scheduledSection) {
+                    int currentProf = currentClass.getProfessors().get(i);
+                    for (int j = 0; j < preferredTimes.get(currentProf).size(); j++)
                     {
                         //if teaching time is available, so professor not yet teaching at this time
-                        int currentTime = preferredTimes.get(currentClass.getProfessors()).get(j);
-                        if(!teachingTimes.get(currentClass.getProfessors().get(i)).contains(currentTime));
+                        int currentTime = preferredTimes.get(currentProf).get(j);
+                        if(!teachingTimes.get(currentProf).contains(currentTime));
                         {
                             boolean hasRoom = false;
                             int currentTry = findRoom(currentClass.getEnrollmentLimit(),rooms);
@@ -170,12 +170,14 @@ public class CS340ProgrammingProject {
                                 if(!room.isOccupied(currentTime)){
                                     currentClass.setSingleSectionTime(i, currentTime);
                                     currentClass.setSingleSectionRoom(i, room.getRoomName());
+                                    currentClass.setSingleSectionProfessor(i, currentProf);
                                     hasRoom = true;
+                                    scheduledSection = true;
                                 }
-                                if(currentTry == rooms.length - 1){
+                                if(++currentTry == rooms.length){
                                     break;
                                 }
-                                room = rooms[++currentTry];
+                                room = rooms[currentTry];
                             }
 
                         }
@@ -196,7 +198,9 @@ public class CS340ProgrammingProject {
                             if(!room.isOccupied(currentTime)){
                                 currentClass.setSingleSectionTime(i, currentTime);
                                 currentClass.setSingleSectionRoom(i, room.getRoomName());
+                                currentClass.setSingleSectionProfessor(i, currentProf);
                                 hasRoom = true;
+                                scheduledSection = true;
                             }
                             if(currentTry == rooms.length - 1){
                                     break;

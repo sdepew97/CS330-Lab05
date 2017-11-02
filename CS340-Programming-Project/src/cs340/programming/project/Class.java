@@ -87,15 +87,14 @@ public class Class /*implements Comparable<Class>*/{
     public void setSingleSectionRoom(int index, String sectionRoom){
         this.sectionRooms[index] = sectionRoom;
     }
+    
+    public void setSingleSectionProfessor(int index, int profID){
+        this.whoTeachesSection[index] = profID;
+    }
 
     public void setSectionRooms(String[] sectionRooms)
     {
         this.sectionRooms = sectionRooms;
-    }
-
-    public void setProfessors(ArrayList<Integer> professors)
-    {
-        this.professors = professors;
     }
 
     public void setEnrollmentLimit(int enrollmentLimit)
