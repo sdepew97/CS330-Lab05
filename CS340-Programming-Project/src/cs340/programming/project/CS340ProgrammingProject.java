@@ -115,9 +115,10 @@ public class CS340ProgrammingProject {
                 int class_id = class_scanner.nextInt();
                 int enrollment_limit = 50;
                 ArrayList<Integer> prof_list = new ArrayList<>();
-                int num_sections = 1;
+                int num_sections = 0;
                 while(class_scanner.hasNext()){
                     prof_list.add(class_scanner.nextInt());
+                    num_sections++;
                 }
                class_queue.add(new Class(class_id, num_sections, prof_list, enrollment_limit));
             }
@@ -154,6 +155,7 @@ public class CS340ProgrammingProject {
         Class currentClass;
         int numSections;
         int currentProfessor;
+        int classProcessed = 0;
         while(!class_queue.isEmpty()) {
             currentClass = class_queue.poll(); //never going to be null
             numSections = currentClass.getNumberSections();
@@ -220,6 +222,8 @@ public class CS340ProgrammingProject {
                     }
                 }
             }
+            classes[classProcessed]=currentClass;
+            classProcessed++;
         }
 
         //sort class array
