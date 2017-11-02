@@ -22,6 +22,7 @@ public class CS340ProgrammingProject {
 
     //fields of the class
     //variables for file input
+    private static boolean extensions = false;
     private static Scanner input;
     private static Scanner constraints_scanner;
     private static Scanner student_prefs_scanner;
@@ -272,9 +273,37 @@ public class CS340ProgrammingProject {
         */
         //System.out.println(printArray(class_times));
         //System.out.println(printArray(student_pref_classes));
-        System.out.println(roomBST.toString());
-        System.out.println((printArray(rooms)));
-        System.out.println((printArray(students)));
+        //System.out.println(roomBST.toString());
+        //System.out.println((printArray(rooms)));
+        //System.out.println((printArray(students)));
+        if(extensions){
+            System.out.println("Course\tSection\tRoom\tTeacher\tTime\tStudents");
+            for(int i = 0; i < classes.length; i++){
+                currentClass = classes[i];
+                for(int j = 0; j < currentClass.getNumberSections(); j++){
+                    String enrolled_students = "";
+                    ArrayList<Integer> section_students = currentClass.getStudents()[j];
+                    for(int k = 0; k < section_students.size(); k++){
+                        enrolled_students = enrolled_students +  section_students.get(k);
+                    }
+                    System.out.println(currentClass.getClassID() + "\t" + j + "\t" + currentClass.getSectionRooms()[0] + "\t" 
+                        + currentClass.getSectionTimes()[0] + "\t" + enrolled_students);   
+                }
+            }
+        }
+        else{
+            System.out.println("Course\tRoom\tTeacher\tTime\tStudents");
+            for(int i = 0; i < classes.length; i++){
+                currentClass = classes[i];
+                String enrolled_students = "";
+                ArrayList<Integer> section_students = currentClass.getStudents()[0];
+                for(int k = 0; k < section_students.size(); k++){
+                    enrolled_students = enrolled_students +  section_students.get(k);
+                }
+                System.out.println(currentClass.getClassID() + "\t" + currentClass.getSectionRooms()[0] + "\t" 
+                        + currentClass.getSectionTimes()[0] + "\t" + enrolled_students);
+            }
+        }
     }
 
     //helper functions
