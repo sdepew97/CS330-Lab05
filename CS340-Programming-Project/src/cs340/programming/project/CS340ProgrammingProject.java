@@ -163,11 +163,6 @@ public class CS340ProgrammingProject {
             numSections = currentClass.getNumberSections();
 
             for(int i=0; i<numSections; i++) {
-                //if(/*professor available to teach class*/)
-                //{
-                //dequeue.assignProfessor();
-
-                //}
                 boolean scheduledSection = false;
                 while (!scheduledSection) {
                     int currentProf = currentClass.getProfessors().get(i);
@@ -215,10 +210,11 @@ public class CS340ProgrammingProject {
                                 break;
                             }
                             room = rooms[++currentTry];
-                            if(++currentTime == class_times.length){
+                            currentTime++;
+                            if(currentTime == class_times.length){
                                 currentTime = 0;
                             }
-                            if(++currentTime == randomTime){
+                            if(currentTime == randomTime){
                                 break;
                             }
                         }
@@ -234,7 +230,7 @@ public class CS340ProgrammingProject {
         Arrays.sort(classes, new ClassComparator());
         //System.out.println(classes[56]);
 
-        printArray(classes);
+        //printArray(classes);
 
         //enrolling students
         for(int i=0; i<students.length; i++)
@@ -348,8 +344,11 @@ public class CS340ProgrammingProject {
                     for (int k = 0; k < section_students.size(); k++) {
                         enrolled_students = enrolled_students + " " + section_students.get(k);
                     }
-                    System.out.println(currentClass.getClassID() + "\t" + currentClass.getSectionRooms()[0] + "\t"
-                            + currentClass.getSectionTimes()[0] + "\t" + enrolled_students);
+                    if(currentClass.getClassID()==9){
+                        int x = 5;
+                    }
+                    System.out.println(currentClass.getClassID() + "\t" + currentClass.getSectionRooms()[0] + "\t" + currentClass.getProfessors().get(0) + "\t"
+                            + class_times[currentClass.getSectionTimes()[0]] + "\t" + enrolled_students);
                 }
             }
         }
