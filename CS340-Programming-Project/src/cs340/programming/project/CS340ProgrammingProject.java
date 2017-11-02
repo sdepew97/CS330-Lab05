@@ -49,9 +49,6 @@ public class CS340ProgrammingProject {
    //dictionary: key is professor id, value is arrayList of times professor is teaching
     private static HashMap<Integer, ArrayList<Integer>> teachingTimes = new HashMap<>();
 
-    //Binary Search Tree to store room objects ordered by capacity
-    private static BST<Room> roomBST;
-
     //main function
     public static void main(String[] args) throws FileNotFoundException {
         input = new Scanner(System.in);
@@ -76,7 +73,6 @@ public class CS340ProgrammingProject {
         //We know the next section in Haverfordconstraints is the rooms
         num_rooms = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]", ""));
         room_strings = new String[num_rooms];
-        roomBST = new BST<>();
         readLines(room_strings, constraints_scanner, num_rooms);
         rooms = new Room[num_rooms];
         Room current;
@@ -84,7 +80,6 @@ public class CS340ProgrammingProject {
             Scanner room_scanner = new Scanner(room_strings[i]);
             current = new Room(room_scanner.next(), room_scanner.nextInt());
             rooms[i] = current;
-            roomBST.add(current);
         }
         Arrays.sort(rooms);
 
@@ -174,6 +169,7 @@ public class CS340ProgrammingProject {
                                     currentClass.setSingleSectionTime(i, currentTime);
                                     currentClass.setSingleSectionRoom(i, room.getRoomName());
                                     currentClass.setSingleSectionProfessor(i, currentProf);
+                                    room.addOccupiedTime(currentTime);
                                     hasRoom = true;
                                     scheduledSection = true;
                                 }
@@ -282,7 +278,7 @@ public class CS340ProgrammingProject {
                 currentClass = classes[i];
                 for(int j = 0; j < currentClass.getNumberSections(); j++){
                     String enrolled_students = "";
-                    ArrayList<Integer> section_students = currentClass.getStudents()[j];
+                    ArrayList<Integer> section_students = currentClass.getEnrolledStudents()[j];
                     for(int k = 0; k < section_students.size(); k++){
                         enrolled_students = enrolled_students +  section_students.get(k);
                     }
@@ -296,7 +292,7 @@ public class CS340ProgrammingProject {
             for(int i = 0; i < classes.length; i++){
                 currentClass = classes[i];
                 String enrolled_students = "";
-                ArrayList<Integer> section_students = currentClass.getStudents()[0];
+                ArrayList<Integer> section_students = currentClass.getEnrolledStudents()[0];
                 for(int k = 0; k < section_students.size(); k++){
                     enrolled_students = enrolled_students +  section_students.get(k);
                 }

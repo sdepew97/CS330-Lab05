@@ -32,17 +32,6 @@ public class Student {
 
     public ArrayList<Integer> getSectionOfClass() { return this.sectionOfClass; }
 
-    //setter methods
-    public void setStudentID(int studentID)
-    {
-        this.studentID = studentID;
-    }
-
-    public void setPreferencesList(ArrayList<Integer> preferencesList)
-    {
-        this.preferencesList = preferencesList;
-    }
-
     //method to enroll student in a class
     public void enrollStudent(Integer classToEnroll, Integer section)
     {

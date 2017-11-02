@@ -27,22 +27,6 @@ public class Room implements Comparable<Room>{
         return this.roomCapacity;
     }
 
-    //setter methods
-    public void setRoomName(String roomName)
-    {
-        this.roomName = roomName;
-    }
-
-    public void setRoomCapacity(int roomCapacity)
-    {
-        this.roomCapacity = roomCapacity;
-    }
-
-    public void addTimeOccupied(int time)
-    {
-        this.timesOccupied.add(time);
-    }
-
     //checks if the room is occupied at a certain time
     public boolean isOccupied(int time)
     {
