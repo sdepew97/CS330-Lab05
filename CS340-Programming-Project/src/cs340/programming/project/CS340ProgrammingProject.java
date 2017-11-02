@@ -184,7 +184,7 @@ public class CS340ProgrammingProject {
                     while (currentClass.getSectionTimes()[i] == -1) {
                         //pick an entry into the times array at random
                         Random random = new Random();
-                        random.nextInt();
+                        random.nextInt(class_times.length);
                         boolean hasRoom = false;
                         int currentTry = findRoom(currentClass.getEnrollmentLimit(),rooms);
                         Room room = rooms[currentTry];
@@ -205,7 +205,11 @@ public class CS340ProgrammingProject {
         for(int i=0; i<students.length; i++)
         {
             ArrayList<Integer> preferences = students[i].getPreferencesList();
-            for()
+            for(int j=0; j<preferences.size(); j++)
+            {
+                //enroll in preferences list
+
+            }
         }
 
 
