@@ -17,7 +17,7 @@ public class ClassComparator implements Comparator<Class>{
     
     @Override
     public int compare(Class c, Class c1) {
-        return c1.getNumberSections()*c1.getEnrollmentLimit() - c.getNumberSections()*c.getEnrollmentLimit();
+        return c.getClassID() - c1.getClassID();
     }
     
 }

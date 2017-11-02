@@ -246,7 +246,7 @@ public class CS340ProgrammingProject {
                     students[i].enrollStudent(classToEnroll, 0);
 
                     //list student as enrolled in class
-                    classes[classToEnroll].enrollStudent(students[i].getStudentID(), 0);
+                    findClass(classToEnroll,classes).enrollStudent(students[i].getStudentID(), 0);
                 }
                 //student is already enrolled in one or more classes
                 else {
@@ -330,9 +330,28 @@ public class CS340ProgrammingProject {
         }
         return returnString;
     }
+    
+    static Class findClass(int id, Class[] classes){
+        int start = 0;
+        int end = classes.length - 1;
+        int index = (start + end)/2;
+        int currentID = classes[index].getClassID();
+        while(currentID != id){
+            if(end - start == 1){
+                return null;
+            }
+            if(currentID < id){
+                start = index;
+            }
+            else{
+                end = index;
+            }
+            index = start + end/2;
+        }
+        return classes[index];
+    }
 
     static int findRoom(int capacity, Room[] rooms){
-        int length = rooms.length;
         int start = 0;
         int end = rooms.length - 1;
         int index = (start + end)/2;
