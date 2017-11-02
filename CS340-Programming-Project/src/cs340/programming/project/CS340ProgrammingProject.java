@@ -5,8 +5,6 @@
  */
 package cs340.programming.project;
 
-import com.sun.deploy.util.ArrayUtil;
-import com.sun.tools.javac.util.ArrayUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -282,7 +280,7 @@ public class CS340ProgrammingProject {
                 currentClass = classes[i];
                 for(int j = 0; j < currentClass.getNumberSections(); j++){
                     String enrolled_students = "";
-                    ArrayList<Integer> section_students = currentClass.getStudents()[j];
+                    ArrayList<Integer> section_students = currentClass.getEnrolledStudents()[j];
                     for(int k = 0; k < section_students.size(); k++){
                         enrolled_students = enrolled_students +  section_students.get(k);
                     }
@@ -296,7 +294,7 @@ public class CS340ProgrammingProject {
             for(int i = 0; i < classes.length; i++){
                 currentClass = classes[i];
                 String enrolled_students = "";
-                ArrayList<Integer> section_students = currentClass.getStudents()[0];
+                ArrayList<Integer> section_students = currentClass.getEnrolledStudents()[0];
                 for(int k = 0; k < section_students.size(); k++){
                     enrolled_students = enrolled_students +  section_students.get(k);
                 }
