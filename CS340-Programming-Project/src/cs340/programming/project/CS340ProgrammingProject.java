@@ -10,6 +10,7 @@ import java.io.FileNotFoundException;
 import java.util.*;
 import java.lang.String;
 import static java.lang.System.in;
+import java.lang.reflect.Array;
 
 /**
  *
@@ -70,7 +71,6 @@ public class CS340ProgrammingProject {
         //We know the next section in Haverfordconstraints is the rooms
         num_rooms = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]", ""));
         room_strings = new String[num_rooms];
-        roomBST = new BST<>();
         readLines(room_strings, constraints_scanner, num_rooms);
         rooms = new Room[num_rooms];
         Room current;
@@ -78,8 +78,8 @@ public class CS340ProgrammingProject {
             Scanner room_scanner = new Scanner(room_strings[i]);
             current = new Room(room_scanner.next(), room_scanner.nextInt());
             rooms[i] = current;
-            roomBST.add(current);
         }
+        Arrays.sort(rooms);
 
         //We know the third section will be classes and the professors
         //teaching each class
@@ -156,10 +156,22 @@ public class CS340ProgrammingProject {
 
                     for (int j = 0; j < (preferredTimes.get(currentClass.getProfessors().get(i))).size(); j++)
                     {
-                        //if teaching time is available, so not yet teaching at this time
-                        if(!teachingTimes.get(currentClass.getProfessors().get(i)).contains(preferredTimes.get(currentClass.getProfessors()).get(j)));
+                        //if teaching time is available, so professor not yet teaching at this time
+                        int currentTime = preferredTimes.get(currentClass.getProfessors()).get(j);
+                        if(!teachingTimes.get(currentClass.getProfessors().get(i)).contains(currentTime));
                         {
-                            currentClass.setSingleSectionTime(i, preferredTimes.get(currentClass.getProfessors()).get(j));
+                            boolean hasRoom = false;
+                            int currentTry = findRoom(currentClass.getEnrollmentLimit(),rooms);
+                            Room room = rooms[currentTry];
+                            while(!hasRoom){
+                                if(!room.isOccupied(currentTime)){
+                                    currentClass.setSingleSectionTime(i, currentTime);
+                                    currentClass.setSingleSectionRoom(i, room.getRoomName());
+                                    hasRoom = true;
+                                }
+                                room = rooms[++currentTry];
+                            }
+                            
                         }
 
                         //mark time as tried
@@ -171,6 +183,17 @@ public class CS340ProgrammingProject {
                         //pick an entry into the times array at random
                         Random random = new Random();
                         random.nextInt();
+                        boolean hasRoom = false;
+                        int currentTry = findRoom(currentClass.getEnrollmentLimit(),rooms);
+                        Room room = rooms[currentTry];
+                        while(!hasRoom){
+                            if(!room.isOccupied(currentTime)){
+                                currentClass.setSingleSectionTime(i, currentTime);
+                                currentClass.setSingleSectionRoom(i, room.getRoomName());
+                                hasRoom = true;
+                            }
+                            room = rooms[++currentTry];
+                        }
                     }
                 }
             }
@@ -208,7 +231,27 @@ public class CS340ProgrammingProject {
         }
         return returnString;
     }
-
+    
+    static int findRoom(int capacity, Room[] rooms){
+        int length = rooms.length;
+        int start = 0;
+        int end = rooms.length - 1;
+        int index = (start + end)/2;
+        int currentCapacity = rooms[index].getRoomCapacity();
+        while(currentCapacity != capacity){
+            if(end - start == 1){
+                return end;
+            }
+            if(currentCapacity < capacity){
+                start = index;
+            }
+            else{
+                end = index;
+            }
+        }
+        return index;
+    }
+    
     //Allow the user to input the paths of the files to read
     static void inputFiles(File constraints, File student_prefs)
     {

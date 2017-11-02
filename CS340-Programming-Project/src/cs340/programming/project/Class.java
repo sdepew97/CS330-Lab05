@@ -83,6 +83,10 @@ public class Class /*implements Comparable<Class>*/{
     {
         this.sectionTimes[index] = sectionTime;
     }
+    
+    public void setSingleSectionRoom(int index, String sectionRoom){
+        this.sectionRooms.add(index, sectionRoom);
+    }
 
     public void setSectionRooms(ArrayList<String> sectionRooms)
     {
