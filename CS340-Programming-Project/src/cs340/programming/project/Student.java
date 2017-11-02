@@ -26,10 +26,7 @@ public class Student {
         return this.preferencesList;
     }
 
-    public ArrayList<Integer> getEnrolledClassList()
-    {
-        return this.enrolledClassList;
-    }
+    public ArrayList<Integer> getEnrolledClassList() { return this.enrolledClassList; }
 
     //setter methods
     public void setStudentID(int studentID)
@@ -42,9 +39,10 @@ public class Student {
         this.preferencesList = preferencesList;
     }
 
-    public void setEnrolledClassList(ArrayList<Integer> enrolledClassList)
+    //method to enroll student in a class
+    public void enrollStudent(Integer classToEnroll)
     {
-        this.enrolledClassList = enrolledClassList;
+        this.enrolledClassList.add(classToEnroll);
     }
 
     @Override

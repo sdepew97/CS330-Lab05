@@ -5,6 +5,9 @@
  */
 package cs340.programming.project;
 
+import com.sun.deploy.util.ArrayUtil;
+import com.sun.tools.javac.util.ArrayUtils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -140,7 +143,6 @@ public class CS340ProgrammingProject {
         }
 
         //Fill classes with necessary information
-        Class[] classesWithInformation = new Class[class_queue.size()];
         Class currentClass;
         int numSections;
         int currentProfessor;
@@ -218,6 +220,9 @@ public class CS340ProgrammingProject {
             }
         }
 
+        //sort class array
+        Arrays.sort(classes);
+
         //enrolling students
         for(int i=0; i<students.length; i++)
         {
@@ -225,7 +230,29 @@ public class CS340ProgrammingProject {
             for(int j=0; j<preferences.size(); j++)
             {
                 //enroll in preferences list
+                Integer classToEnroll = preferences.get(j);
+                ArrayList<Integer> currentlyEnrolled = students[i].getEnrolledClassList();
 
+                //make sure classToEnroll has no conflicts with classes currently enrolled
+                if(currentlyEnrolled.size()==0)
+                {
+                    //enroll student in class
+                    students[i].enrollStudent(classToEnroll);
+
+                    //list student as enrolled in class
+                    classes[classToEnroll].enrollStudent(students[i]);
+                }
+                else {
+                    for (int k = 0; k < currentlyEnrolled.size(); k++) {
+                        Class classToCheck = classes[currentlyEnrolled.get(k)];
+                        //check for time conflict
+                        for(int l=0; l<classToCheck.getSectionTimes().length; l++)
+                            if(Arrays.asList(classToCheck.getSectionTimes()).contains(classToCheck.getSectionTimes()[l]))
+                            {
+
+                            }
+                    }
+                }
             }
         }
 
