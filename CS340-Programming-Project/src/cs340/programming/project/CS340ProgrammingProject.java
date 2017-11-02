@@ -305,29 +305,15 @@ public class CS340ProgrammingProject {
             }
         }
 
-
-
-        /*
-        System.out.println(num_times);
-        System.out.println(num_rooms);
-        System.out.println(num_classes);
-        System.out.println(num_teachers);
-        */
-        //System.out.println(printArray(class_times));
-        //System.out.println(printArray(student_pref_classes));
-        //System.out.println(roomBST.toString());
-        //System.out.println((printArray(rooms)));
-        //System.out.println((printArray(students)));
-
         if(extensions){
-            System.out.println("Course\tSection\tRoom\tTeacher\tTime\tStudents");
+            //System.out.println("Course" + "\t" + " "Section" + "\t" + "Room" + "\t" + "Teacher" + "\t" + "Time" + "\t" + "Students");
             for(int i = 0; i < classes.length; i++){
                 currentClass = classes[i];
                 for(int j = 0; j < currentClass.getNumberSections(); j++){
                     String enrolled_students = "";
                     ArrayList<Integer> section_students = currentClass.getEnrolledStudents()[j];
                     for(int k = 0; k < section_students.size(); k++){
-                        enrolled_students = enrolled_students +  section_students.get(k);
+                        enrolled_students = enrolled_students + section_students.get(k);
                     }
                     System.out.println(currentClass.getClassID() + "\t" + j + "\t" + currentClass.getSectionRooms()[0] + "\t"
                             + currentClass.getSectionTimes()[0] + "\t" + enrolled_students);
@@ -335,7 +321,7 @@ public class CS340ProgrammingProject {
             }
         }
         else{
-            System.out.println("Course\tRoom\tTeacher\tTime\tStudents");
+            System.out.println("Course\tRoom\tTeacher\tTime\t\t\t\t\t\tStudents");
             for(int i = 0; i < classes.length; i++){
                 currentClass = classes[i];
                 String enrolled_students = "";
@@ -344,11 +330,8 @@ public class CS340ProgrammingProject {
                     for (int k = 0; k < section_students.size(); k++) {
                         enrolled_students = enrolled_students + " " + section_students.get(k);
                     }
-                    if(currentClass.getClassID()==9){
-                        int x = 5;
-                    }
-                    System.out.println(currentClass.getClassID() + "\t" + currentClass.getSectionRooms()[0] + "\t" + currentClass.getProfessors().get(0) + "\t"
-                            + class_times[currentClass.getSectionTimes()[0]] + "\t" + enrolled_students);
+                    System.out.println(currentClass.getClassID() + "\t" + "\t" + currentClass.getSectionRooms()[0] + "\t" + currentClass.getProfessors().get(0) + "\t"
+                            + "\t" + class_times[currentClass.getSectionTimes()[0]] + "\t" + enrolled_students);
                 }
             }
         }
