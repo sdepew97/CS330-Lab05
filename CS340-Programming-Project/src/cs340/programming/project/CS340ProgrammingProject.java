@@ -55,10 +55,10 @@ public class CS340ProgrammingProject {
         //inputFiles(constraints, student_prefs);
 
         //Paths of the files to read
-        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/haverfordConstraints.txt");
-        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/haverfordStudentPrefs.txt");
-        //constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
-        //student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
+        //constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/haverfordConstraints.txt");
+        //student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/haverfordStudentPrefs.txt");
+        constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
+        student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
         constraints_scanner = new Scanner(constraints);
         student_prefs_scanner = new Scanner(student_prefs);
 
@@ -256,7 +256,8 @@ public class CS340ProgrammingProject {
                 //student is already enrolled in one or more classes
                 else {
                     //go through list of classes student current enrolled in
-                    for (int k = 0; k < currentlyEnrolled.size(); k++) {
+                    int numCurrentlyEnrolled = currentlyEnrolled.size();
+                    for (int k = 0; k < numCurrentlyEnrolled; k++) {
                         Integer timeToCheck = currentlyEnrolled.get(k);
                         Class wantToEnroll = findClass(classToEnroll,classes);
                         //check for time conflict
