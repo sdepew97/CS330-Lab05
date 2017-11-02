@@ -8,6 +8,8 @@ package cs340.programming.project;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
 import java.util.*;
 import java.lang.String;
 import static java.lang.System.in;
@@ -68,7 +70,7 @@ public class CS340ProgrammingProject {
         //Got parsing for only integers from Stack Overflow web-page
         num_times = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]",""));
         class_times = new String[num_times];
-        readLines(class_times, constraints_scanner, num_times);
+        readLinesTimes(class_times, constraints_scanner, num_times);
 
         //We know the next section in Haverfordconstraints is the rooms
         num_rooms = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]", ""));
@@ -321,17 +323,19 @@ public class CS340ProgrammingProject {
             }
         }
         else{
-            System.out.println("Course\tRoom\tTeacher\tTime\t\t\t\t\t\tStudents");
+            PrintStream out = new PrintStream(new FileOutputStream("/Users/Sarah/Desktop/cs340/project/haverford/programOutput.txt"));
+            System.setOut(out);
+            System.out.println("Course\tRoom\tTeacher\tTime\tStudents");
             for(int i = 0; i < classes.length; i++){
                 currentClass = classes[i];
                 String enrolled_students = "";
                 if(currentClass.getNumberSections()!=0) {
                     ArrayList<Integer> section_students = currentClass.getEnrolledStudents()[0];
                     for (int k = 0; k < section_students.size(); k++) {
-                        enrolled_students = enrolled_students + " " + section_students.get(k);
+                        enrolled_students = enrolled_students + section_students.get(k) + " ";
                     }
-                    System.out.println(currentClass.getClassID() + "\t" + "\t" + currentClass.getSectionRooms()[0] + "\t" + currentClass.getProfessors().get(0) + "\t"
-                            + "\t" + class_times[currentClass.getSectionTimes()[0]] + "\t" + enrolled_students);
+                    System.out.println(currentClass.getClassID() + "\t" + currentClass.getSectionRooms()[0] + "\t" + currentClass.getProfessors().get(0) + "\t"
+                            + class_times[currentClass.getSectionTimes()[0]] + "\t" + enrolled_students);
                 }
             }
         }
@@ -343,6 +347,12 @@ public class CS340ProgrammingProject {
     static void readLines(Object[] array, Scanner scanner, int num_lines_to_read){
         for(int i = 0; i < num_lines_to_read; i++){
             array[i] = scanner.nextLine();
+        }
+    }
+
+    static void readLinesTimes(Object[] array, Scanner scanner, int num_lines_to_read){
+        for(int i = 0; i < num_lines_to_read; i++){
+            array[i] = scanner.nextLine().substring(0,3).trim();
         }
     }
 
