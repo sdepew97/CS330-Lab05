@@ -39,7 +39,7 @@ public class CS340ProgrammingProject {
     private static String[] classprofs;
     private static Room[] rooms;
     private static Student[] students;
-    private static String[] times;
+    private static String[] times; //checking if my commment works
     private static HashMap<Integer, ArrayList<Integer>> preferredTimes = new HashMap<>();
     private static HashMap<Integer, ArrayList<Integer>> teachingTimes = new HashMap();
 
