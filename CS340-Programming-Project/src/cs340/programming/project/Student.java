@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Student {
     //data fields
     private int studentID;
-    private ArrayList<Integer> preferencesList;
-    private ArrayList<Integer> enrolledClassList;
+    private ArrayList<Integer> preferencesList; //holds class id's that student desires
+    private ArrayList<Integer> enrolledClassList; //holds class id's that student is enrolled in
 
     public Student(int studentID, ArrayList<Integer> preferencesList)
     {
