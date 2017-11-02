@@ -154,12 +154,12 @@ public class CS340ProgrammingProject {
 
                 while (currentClass.getSectionRooms().size() < i+1) {
 
-                    for (int j = 0; j < (preferedTimes.get(currentClass.getProfessors().get(i))).length; j++)
+                    for (int j = 0; j < (preferredTimes.get(currentClass.getProfessors().get(i))).size(); j++)
                     {
                         //if teaching time is available, so not yet teaching at this time
-                        if(!teachingTimes.get(currentClass.getProfessors().get(i)).contains(preferedTimes.get(currentClass.getProfessors())[j])))
+                        if(!teachingTimes.get(currentClass.getProfessors().get(i)).contains(preferredTimes.get(currentClass.getProfessors()).get(j)));
                         {
-                            currentClass.setSingleSectionTime(i, preferedTimes.get(currentClass.getProfessors())[j]);
+                            currentClass.setSingleSectionTime(i, preferredTimes.get(currentClass.getProfessors()).get(j));
                         }
 
                         //mark time as tried
@@ -170,7 +170,7 @@ public class CS340ProgrammingProject {
                     {
                         //pick an entry into the times array at random
                         Random random = new Random();
-                        random.nextInt()
+                        random.nextInt();
                     }
                 }
             }
