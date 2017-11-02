@@ -227,7 +227,7 @@ public class CS340ProgrammingProject {
         }
 
         //sort class array
-        Arrays.sort(classes);
+        Arrays.sort(classes, new ClassComparator());
 
         //enrolling students
         for(int i=0; i<students.length; i++)
