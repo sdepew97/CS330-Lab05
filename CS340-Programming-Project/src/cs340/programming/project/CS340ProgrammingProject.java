@@ -55,8 +55,10 @@ public class CS340ProgrammingProject {
         //inputFiles(constraints, student_prefs);
 
         //Paths of the files to read
-        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/haverfordConstraints.txt");
-        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/haverfordStudentPrefs.txt");
+        //constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/haverfordConstraints.txt");
+        //student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/haverfordStudentPrefs.txt");
+        constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
+        student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
         constraints_scanner = new Scanner(constraints);
         student_prefs_scanner = new Scanner(student_prefs);
 
