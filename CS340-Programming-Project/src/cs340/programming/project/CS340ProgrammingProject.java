@@ -46,7 +46,7 @@ public class CS340ProgrammingProject {
     //dictionary: key is professor id, value is arrayList of string times
     private static HashMap<Integer, ArrayList<Integer>> preferredTimes = new HashMap<>();
    //dictionary: key is professor id, value is arrayList of times professor is teaching
-    private static HashMap<Integer, ArrayList<Integer>> teachingTimes = new HashMap();
+    private static HashMap<Integer, ArrayList<Integer>> teachingTimes = new HashMap<>();
 
     //Binary Search Tree to store room objects ordered by capacity
     private static BST<Room> roomBST;
@@ -108,7 +108,7 @@ public class CS340ProgrammingProject {
             if(class_scanner.hasNext()){
                 enrollment_limit = class_scanner.nextInt();
             }*/
-            ArrayList<Integer> prof_list = new ArrayList<Integer>();
+            ArrayList<Integer> prof_list = new ArrayList<>();
             int num_sections = 0;
             while(class_scanner.hasNext()){
                 prof_list.add(class_scanner.nextInt());
@@ -120,7 +120,7 @@ public class CS340ProgrammingProject {
             String profPreferredTimes = constraints_scanner.nextLine();
             Scanner prof_scanner = new Scanner(profPreferredTimes);
             int profId = prof_scanner.nextInt();
-            ArrayList<Integer> prefTimes = new ArrayList<Integer>();
+            ArrayList<Integer> prefTimes = new ArrayList<>();
             while(prof_scanner.hasNext()){
                 prefTimes.add(prof_scanner.nextInt());
             }
@@ -135,7 +135,7 @@ public class CS340ProgrammingProject {
         for(int i = 0; i < num_students; i++){
             Scanner student_scanner = new Scanner(student_pref_classes[i]);
             int student_id = student_scanner.nextInt();
-            ArrayList<Integer> pref_classes = new ArrayList<Integer>();
+            ArrayList<Integer> pref_classes = new ArrayList<>();
             while(student_scanner.hasNext()){
                 pref_classes.add(student_scanner.nextInt());
             }
@@ -181,7 +181,6 @@ public class CS340ProgrammingProject {
                                 }
                                 room = rooms[currentTry];
                             }
-
                         }
 
                         //mark time as tried
@@ -227,10 +226,10 @@ public class CS340ProgrammingProject {
         for(int i=0; i<students.length; i++)
         {
             ArrayList<Integer> preferences = students[i].getPreferencesList();
-            for(int j=0; j<preferences.size(); j++)
+            for(int j=0; j<preferences.size(); j++) //getting preferences per student
             {
-                //enroll in preferences list
-                Integer classToEnroll = preferences.get(j);
+                //enroll class in preferences list
+                Integer classToEnroll = preferences.get(j); //getting first preferenced class
                 ArrayList<Integer> currentlyEnrolled = students[i].getSectionOfClass();
 
                 //make sure classToEnroll has no conflicts with classes currently enrolled
@@ -252,7 +251,7 @@ public class CS340ProgrammingProject {
                         for (int l = 0; l < wantToEnroll.getSectionTimes().length; l++) {
                             if (!(wantToEnroll.getSectionTimes()[l].equals(timeToCheck))) {
                                 //enroll student in class and note section enrolled in
-                                students[i].enrollStudent(classToEnroll, j);
+                                students[i].enrollStudent(classToEnroll, l);
 
                                 //list student as enrolled in class
                                 classes[classToEnroll].enrollStudent(students[i].getStudentID(), l);
