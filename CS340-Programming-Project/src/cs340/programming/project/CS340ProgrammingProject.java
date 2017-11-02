@@ -346,7 +346,7 @@ public class CS340ProgrammingProject {
             else{
                 end = index;
             }
-            index = start + end/2;
+            index = (start + end)/2;
             currentID = classes[index].getClassID();
         }
         return classes[index];
@@ -367,7 +367,7 @@ public class CS340ProgrammingProject {
             else{
                 end = index;
             }
-            index = start + end/2;
+            index = (start + end)/2;
             currentCapacity = rooms[index].getRoomCapacity();
         }
         return index;
