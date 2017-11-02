@@ -63,22 +63,6 @@ public class Class implements Comparable<Class>{
         return enrolledStudents;
     }
 
-    //setter methods
-    public void setClassID(int classID)
-    {
-        this.classID = classID;
-    }
-
-    public void setNumberSections(int numberSections)
-    {
-        this.numberSections = numberSections;
-    }
-
-    public void setSectionTimes(Integer[] sectionTimes)
-    {
-        this.sectionTimes = sectionTimes;
-    }
-
     public void setSingleSectionTime(int index, Integer sectionTime)
     {
         this.sectionTimes[index] = sectionTime;
@@ -90,26 +74,6 @@ public class Class implements Comparable<Class>{
     
     public void setSingleSectionProfessor(int index, int profID){
         this.whoTeachesSection[index] = profID;
-    }
-
-    public void setSectionRooms(String[] sectionRooms)
-    {
-        this.sectionRooms = sectionRooms;
-    }
-
-    public void setEnrollmentLimit(int enrollmentLimit)
-    {
-        this.enrollmentLimit = enrollmentLimit;
-    }
-
-    public void setEnrolledStudents(ArrayList<Integer>[] enrolledStudents)
-    {
-        this.enrolledStudents = enrolledStudents;
-    }
-
-    public void assignProfessor(int section, int professor)
-    {
-        this.whoTeachesSection[section] = professor;
     }
 
     //method to enroll a student in a class

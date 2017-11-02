@@ -47,9 +47,6 @@ public class CS340ProgrammingProject {
    //dictionary: key is professor id, value is arrayList of times professor is teaching
     private static HashMap<Integer, ArrayList<Integer>> teachingTimes = new HashMap<>();
 
-    //Binary Search Tree to store room objects ordered by capacity
-    private static BST<Room> roomBST;
-
     //main function
     public static void main(String[] args) throws FileNotFoundException {
         input = new Scanner(System.in);
@@ -74,7 +71,6 @@ public class CS340ProgrammingProject {
         //We know the next section in Haverfordconstraints is the rooms
         num_rooms = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]", ""));
         room_strings = new String[num_rooms];
-        roomBST = new BST<>();
         readLines(room_strings, constraints_scanner, num_rooms);
         rooms = new Room[num_rooms];
         Room current;
@@ -82,7 +78,6 @@ public class CS340ProgrammingProject {
             Scanner room_scanner = new Scanner(room_strings[i]);
             current = new Room(room_scanner.next(), room_scanner.nextInt());
             rooms[i] = current;
-            roomBST.add(current);
         }
         Arrays.sort(rooms);
 
@@ -175,25 +170,18 @@ public class CS340ProgrammingProject {
                     if(extensions){
                         for (int j = 0; j < preferredTimes.get(currentProf).size(); j++)
                         {
-                            //if teaching time is available, so professor not yet teaching at this time
                             int currentTime = preferredTimes.get(currentProf).get(j);
-                            if(!teachingTimes.get(currentProf).contains(currentTime));
-                            {
-                                boolean hasRoom = false;
-                                int currentTry = findRoom(currentClass.getEnrollmentLimit(),rooms);
-                                Room room = rooms[currentTry];
-                                while(!hasRoom){
-                                    if(!room.isOccupied(currentTime)){
-                                        currentClass.setSingleSectionTime(i, currentTime);
-                                        currentClass.setSingleSectionRoom(i, room.getRoomName());
-                                        currentClass.setSingleSectionProfessor(i, currentProf);
-                                        hasRoom = true;
-                                        scheduledSection = true;
-                                    }
-                                    if(++currentTry == rooms.length){
-                                        break;
-                                    }
-                                    room = rooms[currentTry];
+                            boolean hasRoom = false;
+                            int currentTry = findRoom(currentClass.getEnrollmentLimit(),rooms);
+                            Room room = rooms[currentTry];
+                            while(!hasRoom){
+                                if(!room.isOccupied(currentTime)){
+                                    currentClass.setSingleSectionTime(i, currentTime);
+                                    currentClass.setSingleSectionRoom(i, room.getRoomName());
+                                    currentClass.setSingleSectionProfessor(i, currentProf);
+                                    room.addOccupiedTime(currentTime);
+                                    hasRoom = true;
+                                    scheduledSection = true;
                                 }
                             }
 
