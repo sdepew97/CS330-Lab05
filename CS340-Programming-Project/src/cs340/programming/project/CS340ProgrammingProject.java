@@ -34,13 +34,15 @@ public class CS340ProgrammingProject {
     //data structures for information
     private static String[] class_times;
     private static PriorityQueue<Class> class_queue = new PriorityQueue<>();
-    private static Class[] classes;
+    private static Class[] classes; //array that holds class objects
     private static String[] room_strings;
     private static String[] classprofs;
-    private static Room[] rooms;
-    private static Student[] students;
-    private static String[] times; //checking if my commment works
+    private static Room[] rooms; //array that holds room objects
+    private static Student[] students; //array that holds student objects
+    private static String[] times; 
+    //dictionary: key is professor id, value is arrayList of string times
     private static HashMap<Integer, ArrayList<Integer>> preferredTimes = new HashMap<>();
+   //dictionary: key is professor id, value is arrayList of times professor is teaching
     private static HashMap<Integer, ArrayList<Integer>> teachingTimes = new HashMap();
 
     //Binary Search Tree to store room objects ordered by capacity
