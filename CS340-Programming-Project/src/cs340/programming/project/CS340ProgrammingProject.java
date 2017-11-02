@@ -41,7 +41,7 @@ public class CS340ProgrammingProject {
     private static Student[] students;
     private static String[] times;
     private static HashMap<Integer, ArrayList<Integer>> preferredTimes = new HashMap<>();
-    private static HashMap<Integer, ArrayList<Integer>> teachingTimes = new HashMap();
+    private static HashMap<Integer, ArrayList<Integer>> teachingTimes = new HashMap<>();
 
     //Binary Search Tree to store room objects ordered by capacity
     private static BST<Room> roomBST;
@@ -145,19 +145,19 @@ public class CS340ProgrammingProject {
             currentClass = class_queue.poll(); //never going to be null
             numSections = currentClass.getNumberSections();
 
-            for(int i=0; i<numSections; i++) {
+            for (int i = 0; i < numSections; i++) {
                 //if(/*professor available to teach class*/)
                 //{
                 //dequeue.assignProfessor();
 
                 //}
 
-                while (currentClass.getSectionRooms().size() < i+1) {
-
-                    for (int j = 0; j < (preferredTimes.get(currentClass.getProfessors().get(i))).size(); j++)
-                    {
+                //while room has not yet been assigned
+                while (currentClass.getSectionRooms().size() < i + 1) {
+                    //while there is a time not yet tried for the professor
+                    for (int j = 0; j < (preferredTimes.get(currentClass.getProfessors().get(i))).size(); j++) {
                         //if teaching time is available, so not yet teaching at this time
-                        if(!teachingTimes.get(currentClass.getProfessors().get(i)).contains(preferredTimes.get(currentClass.getProfessors()).get(j)));
+                        if (!teachingTimes.get(currentClass.getProfessors().get(i)).contains(preferredTimes.get(currentClass.getProfessors()).get(j)))
                         {
                             currentClass.setSingleSectionTime(i, preferredTimes.get(currentClass.getProfessors()).get(j));
                         }
@@ -166,16 +166,35 @@ public class CS340ProgrammingProject {
                     }
 
                     //check if time was actually assigned (filled with -1 at the start which is then replaced with a time
-                    if(currentClass.getSectionTimes()[i]!=-1)
-                    {
+                    while (currentClass.getSectionTimes()[i] == -1) {
                         //pick an entry into the times array at random
                         Random random = new Random();
-                        random.nextInt();
+                        int index = random.nextInt(class_times.length);
+
+                        //check professor is available
+                        if (!teachingTimes.get(currentClass.getProfessors().get(i)).contains(preferredTimes.get(currentClass.getProfessors()).get(index))) {
+                            //assign the time that we picked at random as the class section time
+                            currentClass.getSectionTimes()[i] = index;
+                            break;
+                        }
+                    }
+
+                    //assign a classroom of the size if it is available
+                    if () {
+
                     }
                 }
             }
-
         }
+
+        //enrolling students
+        for(int i=0; i<students.length; i++)
+        {
+            ArrayList<Integer> preferences = students[i].getPreferencesList();
+            for()
+        }
+
+
 
         /*
         System.out.println(num_times);

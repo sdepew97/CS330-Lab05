@@ -63,7 +63,7 @@ public class Room implements Comparable<Room>{
     @Override
     public int compareTo(Room room)
     {
-        //order the values based off the room capacities in the Binary Search Tree
+        //order the values based off the room capacities
         return this.getRoomCapacity() - room.getRoomCapacity();
     }
 
