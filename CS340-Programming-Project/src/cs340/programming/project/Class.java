@@ -8,7 +8,7 @@ public class Class /*implements Comparable<Class>*/{
     private int classID;
     private int numberSections;
     private Integer[] sectionTimes; //we use the section number as an index into the array to get the time of that section
-    private ArrayList<String> sectionRooms;
+    private String[] sectionRooms;
     private ArrayList<Integer> professors; //who can teach the sections
     private int enrollmentLimit;
     private ArrayList<Student> enrolledStudents;
@@ -20,7 +20,7 @@ public class Class /*implements Comparable<Class>*/{
         this.numberSections = numberSections;
         this.sectionTimes = new Integer[numberSections];
         Arrays.fill(this.sectionTimes, -1); //start all values at -1
-        this.sectionRooms = new ArrayList<>();
+        this.sectionRooms = new String[numberSections];
         this.professors = professors;
         this.enrollmentLimit = enrollmentLimit;
         this.enrolledStudents = new ArrayList<>();
@@ -43,7 +43,7 @@ public class Class /*implements Comparable<Class>*/{
         return sectionTimes;
     }
 
-    public ArrayList<String> getSectionRooms()
+    public String[] getSectionRooms()
     {
         return sectionRooms;
     }
@@ -85,10 +85,10 @@ public class Class /*implements Comparable<Class>*/{
     }
     
     public void setSingleSectionRoom(int index, String sectionRoom){
-        this.sectionRooms.add(index, sectionRoom);
+        this.sectionRooms[index] = sectionRoom;
     }
 
-    public void setSectionRooms(ArrayList<String> sectionRooms)
+    public void setSectionRooms(String[] sectionRooms)
     {
         this.sectionRooms = sectionRooms;
     }
@@ -133,7 +133,7 @@ public class Class /*implements Comparable<Class>*/{
                 "classID:" + classID +
                 ", numberSections:" + numberSections +
                 ", sectionTimes:" + CS340ProgrammingProject.printArray(sectionTimes) +
-                ", sectionRooms:" + CS340ProgrammingProject.printArray(sectionRooms.toArray()) +
+                ", sectionRooms:" + CS340ProgrammingProject.printArray(sectionRooms) +
                 ", professors:" + CS340ProgrammingProject.printArray(professors.toArray()) +
                 ", enrollmentLimit:" + enrollmentLimit +
                 ", enrolledStudents:" + enrolledStudents +

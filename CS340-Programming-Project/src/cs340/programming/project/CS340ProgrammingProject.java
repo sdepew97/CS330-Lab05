@@ -39,7 +39,7 @@ public class CS340ProgrammingProject {
     private static String[] classprofs;
     private static Room[] rooms; //array that holds room objects
     private static Student[] students; //array that holds student objects
-    private static String[] times;
+    //private static String[] times;
     //dictionary: key is professor id, value is arrayList of string times
     private static HashMap<Integer, ArrayList<Integer>> preferredTimes = new HashMap<>();
    //dictionary: key is professor id, value is arrayList of times professor is teaching
@@ -155,7 +155,7 @@ public class CS340ProgrammingProject {
 
                 //}
 
-                while (currentClass.getSectionRooms().size() < i+1) {
+                while (currentClass.getSectionRooms().length < i+1) {
 
                     for (int j = 0; j < (preferredTimes.get(currentClass.getProfessors().get(i))).size(); j++)
                     {
@@ -172,6 +172,9 @@ public class CS340ProgrammingProject {
                                     currentClass.setSingleSectionRoom(i, room.getRoomName());
                                     hasRoom = true;
                                 }
+                                if(currentTry == rooms.length - 1){
+                                    break;
+                                }
                                 room = rooms[++currentTry];
                             }
 
@@ -180,11 +183,12 @@ public class CS340ProgrammingProject {
                         //mark time as tried
                     }
 
+                    Random random = new Random();
+                    int randomTime = random.nextInt(class_times.length);
+                    int currentTime = randomTime;
                     //check if time was actually assigned (filled with -1 at the start which is then replaced with a time
                     while (currentClass.getSectionTimes()[i] == -1) {
                         //pick an entry into the times array at random
-                        Random random = new Random();
-                        random.nextInt(class_times.length);
                         boolean hasRoom = false;
                         int currentTry = findRoom(currentClass.getEnrollmentLimit(),rooms);
                         Room room = rooms[currentTry];
@@ -194,7 +198,16 @@ public class CS340ProgrammingProject {
                                 currentClass.setSingleSectionRoom(i, room.getRoomName());
                                 hasRoom = true;
                             }
+                            if(currentTry == rooms.length - 1){
+                                    break;
+                            }
                             room = rooms[++currentTry];
+                            if(++currentTime == class_times.length){
+                                currentTime = 0;
+                            }
+                            if(++currentTime == randomTime){
+                                break;
+                            }
                         }
                     }
                 }
