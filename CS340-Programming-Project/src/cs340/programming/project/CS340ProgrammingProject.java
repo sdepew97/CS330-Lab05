@@ -343,6 +343,7 @@ public class CS340ProgrammingProject {
             else{
                 end = index;
             }
+            index = start + end/2;
         }
         return index;
     }
