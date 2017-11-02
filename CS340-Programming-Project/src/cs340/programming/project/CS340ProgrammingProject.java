@@ -232,26 +232,33 @@ public class CS340ProgrammingProject {
             {
                 //enroll in preferences list
                 Integer classToEnroll = preferences.get(j);
-                ArrayList<Integer> currentlyEnrolled = students[i].getEnrolledClassList();
+                ArrayList<Integer> currentlyEnrolled = students[i].getSectionOfClass();
 
                 //make sure classToEnroll has no conflicts with classes currently enrolled
-                if(currentlyEnrolled.size()==0)
+                if(currentlyEnrolled.size()==0) //if enrolled classes list is empty
                 {
-                    //enroll student in class
-                    students[i].enrollStudent(classToEnroll);
+                    //enroll student in class and note section enrolled in
+                    students[i].enrollStudent(classToEnroll, 0);
 
                     //list student as enrolled in class
-                    classes[classToEnroll].enrollStudent(students[i]);
+                    classes[classToEnroll].enrollStudent(students[i].getStudentID(), 0);
                 }
+                //student is already enrolled in one or more classes
                 else {
+                    //go through list of classes student current enrolled in
                     for (int k = 0; k < currentlyEnrolled.size(); k++) {
-                        Class classToCheck = classes[currentlyEnrolled.get(k)];
+                        Integer timeToCheck = currentlyEnrolled.get(k);
+                        Class wantToEnroll = classes[classToEnroll];
                         //check for time conflict
-                        for(int l=0; l<classToCheck.getSectionTimes().length; l++)
-                            if(Arrays.asList(classToCheck.getSectionTimes()).contains(classToCheck.getSectionTimes()[l]))
-                            {
+                        for (int l = 0; l < wantToEnroll.getSectionTimes().length; l++) {
+                            if (!(wantToEnroll.getSectionTimes()[l].equals(timeToCheck))) {
+                                //enroll student in class and note section enrolled in
+                                students[i].enrollStudent(classToEnroll, j);
 
+                                //list student as enrolled in class
+                                classes[classToEnroll].enrollStudent(students[i].getStudentID(), l);
                             }
+                        }
                     }
                 }
             }

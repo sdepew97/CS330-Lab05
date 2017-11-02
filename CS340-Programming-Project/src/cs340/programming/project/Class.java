@@ -11,7 +11,7 @@ public class Class /*implements Comparable<Class>*/{
     private String[] sectionRooms;
     private ArrayList<Integer> professors; //who can teach the sections
     private int enrollmentLimit;
-    private ArrayList<Student> enrolledStudents;
+    private ArrayList<Integer>[] enrolledStudents;
     private int[] whoTeachesSection;
 
     public Class(int classID, int numberSections, ArrayList<Integer> professors, int enrollmentLimit)
@@ -23,7 +23,7 @@ public class Class /*implements Comparable<Class>*/{
         this.sectionRooms = new String[numberSections];
         this.professors = professors;
         this.enrollmentLimit = enrollmentLimit;
-        this.enrolledStudents = new ArrayList<>();
+        this.enrolledStudents = new ArrayList[numberSections];
         this.whoTeachesSection = new int[numberSections];
     }
 
@@ -58,7 +58,7 @@ public class Class /*implements Comparable<Class>*/{
         return enrollmentLimit;
     }
 
-    public ArrayList<Student> getEnrolledStudents()
+    public ArrayList<Integer>[] getEnrolledStudents()
     {
         return enrolledStudents;
     }
@@ -102,7 +102,7 @@ public class Class /*implements Comparable<Class>*/{
         this.enrollmentLimit = enrollmentLimit;
     }
 
-    public void setEnrolledStudents(ArrayList<Student> enrolledStudents)
+    public void setEnrolledStudents(ArrayList<Integer>[] enrolledStudents)
     {
         this.enrolledStudents = enrolledStudents;
     }
@@ -113,9 +113,9 @@ public class Class /*implements Comparable<Class>*/{
     }
 
     //method to enroll a student in a class
-    public void enrollStudent(Student student)
+    public void enrollStudent(Integer student, Integer section)
     {
-        this.enrolledStudents.add(student);
+        this.enrolledStudents[section].add(student);
     }
 
     /*
