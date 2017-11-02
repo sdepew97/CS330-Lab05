@@ -100,30 +100,44 @@ public class CS340ProgrammingProject {
         classes = new Class[num_classes];
 
         for(int i = 0; i < num_classes; i++){
-            Scanner class_scanner = new Scanner(classprofs[i]);
-            int class_id = class_scanner.nextInt();
-            int enrollment_limit = 50;
-            /*
-            if(class_scanner.hasNext()){
-                enrollment_limit = class_scanner.nextInt();
-            }*/
-            ArrayList<Integer> prof_list = new ArrayList<>();
-            int num_sections = 0;
-            while(class_scanner.hasNext()){
-                prof_list.add(class_scanner.nextInt());
-                num_sections++;
+            if(extensions){
+                Scanner class_scanner = new Scanner(classprofs[i]);
+                int class_id = class_scanner.nextInt();
+                int enrollment_limit = 0;
+                if(class_scanner.hasNext()){
+                    enrollment_limit = class_scanner.nextInt();
+                }
+                ArrayList<Integer> prof_list = new ArrayList<>();
+                int num_sections = 0;
+                while(class_scanner.hasNext()){
+                    prof_list.add(class_scanner.nextInt());
+                    num_sections++;
+                }
+               class_queue.add(new Class(class_id, num_sections, prof_list, enrollment_limit));
             }
-           class_queue.add(new Class(class_id, num_sections, prof_list, enrollment_limit));
+            else{
+                Scanner class_scanner = new Scanner(classprofs[i]);
+                int class_id = class_scanner.nextInt();
+                int enrollment_limit = 50;
+                ArrayList<Integer> prof_list = new ArrayList<>();
+                int num_sections = 1;
+                while(class_scanner.hasNext()){
+                    prof_list.add(class_scanner.nextInt());
+                }
+               class_queue.add(new Class(class_id, num_sections, prof_list, enrollment_limit));
+            }
         }
-        while(constraints_scanner.hasNext()){
-            String profPreferredTimes = constraints_scanner.nextLine();
-            Scanner prof_scanner = new Scanner(profPreferredTimes);
-            int profId = prof_scanner.nextInt();
-            ArrayList<Integer> prefTimes = new ArrayList<>();
-            while(prof_scanner.hasNext()){
-                prefTimes.add(prof_scanner.nextInt());
+        if(extensions){
+            while(constraints_scanner.hasNext()){
+                String profPreferredTimes = constraints_scanner.nextLine();
+                Scanner prof_scanner = new Scanner(profPreferredTimes);
+                int profId = prof_scanner.nextInt();
+                ArrayList<Integer> prefTimes = new ArrayList<>();
+                while(prof_scanner.hasNext()){
+                    prefTimes.add(prof_scanner.nextInt());
+                }
+                preferredTimes.put(profId,prefTimes);
             }
-            preferredTimes.put(profId,prefTimes);
         }
         num_students = Integer.parseInt(student_prefs_scanner.nextLine().replaceAll("[\\D]",""));
 
@@ -158,31 +172,33 @@ public class CS340ProgrammingProject {
                 boolean scheduledSection = false;
                 while (!scheduledSection) {
                     int currentProf = currentClass.getProfessors().get(i);
-                    for (int j = 0; j < preferredTimes.get(currentProf).size(); j++)
-                    {
-                        //if teaching time is available, so professor not yet teaching at this time
-                        int currentTime = preferredTimes.get(currentProf).get(j);
-                        if(!teachingTimes.get(currentProf).contains(currentTime));
+                    if(extensions){
+                        for (int j = 0; j < preferredTimes.get(currentProf).size(); j++)
                         {
-                            boolean hasRoom = false;
-                            int currentTry = findRoom(currentClass.getEnrollmentLimit(),rooms);
-                            Room room = rooms[currentTry];
-                            while(!hasRoom){
-                                if(!room.isOccupied(currentTime)){
-                                    currentClass.setSingleSectionTime(i, currentTime);
-                                    currentClass.setSingleSectionRoom(i, room.getRoomName());
-                                    currentClass.setSingleSectionProfessor(i, currentProf);
-                                    hasRoom = true;
-                                    scheduledSection = true;
+                            //if teaching time is available, so professor not yet teaching at this time
+                            int currentTime = preferredTimes.get(currentProf).get(j);
+                            if(!teachingTimes.get(currentProf).contains(currentTime));
+                            {
+                                boolean hasRoom = false;
+                                int currentTry = findRoom(currentClass.getEnrollmentLimit(),rooms);
+                                Room room = rooms[currentTry];
+                                while(!hasRoom){
+                                    if(!room.isOccupied(currentTime)){
+                                        currentClass.setSingleSectionTime(i, currentTime);
+                                        currentClass.setSingleSectionRoom(i, room.getRoomName());
+                                        currentClass.setSingleSectionProfessor(i, currentProf);
+                                        hasRoom = true;
+                                        scheduledSection = true;
+                                    }
+                                    if(++currentTry == rooms.length){
+                                        break;
+                                    }
+                                    room = rooms[currentTry];
                                 }
-                                if(++currentTry == rooms.length){
-                                    break;
-                                }
-                                room = rooms[currentTry];
                             }
-                        }
 
-                        //mark time as tried
+                            //mark time as tried
+                        }
                     }
 
                     Random random = new Random();
