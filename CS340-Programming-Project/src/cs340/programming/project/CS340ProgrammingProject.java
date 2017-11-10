@@ -23,7 +23,7 @@ public class CS340ProgrammingProject {
     //fields of the class
     //variables for file input
     private static boolean extensions = false;
-    private static boolean basic = false;
+    private static boolean basic = true;
     private static Scanner input;
     private static Scanner constraints_scanner;
     private static Scanner student_prefs_scanner;
@@ -328,6 +328,7 @@ public class CS340ProgrammingProject {
                                         wantToEnroll.enrollStudent(students[i].getStudentID(), 0);
                                     }
                                 }
+
                             }
                         }
                     }
