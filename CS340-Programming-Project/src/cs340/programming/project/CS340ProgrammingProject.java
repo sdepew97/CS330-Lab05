@@ -87,7 +87,6 @@ public class CS340ProgrammingProject {
             rooms[i] = current;
         }
         Arrays.sort(rooms);
-        printArray(rooms);
         //We know the third section will be classes and the professors
         //teaching each class
         num_classes = Integer.parseInt(constraints_scanner.nextLine().replaceAll("[\\D]", ""));
@@ -112,8 +111,10 @@ public class CS340ProgrammingProject {
                 ArrayList<Integer> prof_list = new ArrayList<>();
                 int num_sections = 0;
                 while(class_scanner.hasNext()){
-                    prof_list.add(class_scanner.nextInt());
+                    int prof_id = class_scanner.nextInt();
+                    prof_list.add(prof_id);
                     num_sections++;
+                    teachingTimes.put(prof_id, new ArrayList<Integer>());
                 }
                 class_queue.add(new Class(class_id, num_sections, prof_list, enrollment_limit));
             }
@@ -184,6 +185,7 @@ public class CS340ProgrammingProject {
                                     currentClass.setSingleSectionTime(i, currentTime);
                                     currentClass.setSingleSectionRoom(i, room.getRoomName());
                                     currentClass.setSingleSectionProfessor(i, currentProf);
+                                    teachingTimes.get(currentProf).add(currentTime);
                                     room.addOccupiedTime(currentTime);
                                     hasRoom = true;
                                     scheduledSection = true;
@@ -274,6 +276,7 @@ public class CS340ProgrammingProject {
                         int numCurrentlyEnrolled = currentlyEnrolled.size();
                         if(extensions){
                             //note this needs to change
+                            boolean canEnroll = true;
                             for (int k = 0; k < numCurrentlyEnrolled; k++) {
                                 Integer timeToCheck = findClass(currentlyEnrolled.get(k),classes).getSectionTimes()[0];
                                 Class wantToEnroll = findClass(classToEnroll,classes);
