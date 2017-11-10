@@ -253,25 +253,10 @@ public class CS340ProgrammingProject {
                 //enroll class in preferences list
                 Integer classToEnroll = preferences.get(j); //getting first preferenced class
                 Class foundClass = findClass(classToEnroll, classes);
-                if(foundClass!= null && foundClass.getNumberSections() > 0 && foundClass.getEnrollmentLimit()>foundClass.getEnrolledStudents()[0].size()){
                     ArrayList<Integer> currentlyEnrolled = students[i].getEnrolledClassList();
 
                     //make sure classToEnroll has no conflicts with classes currently enrolled
-                    if(currentlyEnrolled.size()==0) //if enrolled classes list is empty
-                    {
-                        //enroll student in class and note section enrolled in
-                        students[i].enrollStudent(classToEnroll, 0);
-
-                        //list student as enrolled in class
-                        if(foundClass!= null){
-                            if(foundClass.getNumberSections()!=0) {
-                                foundClass.enrollStudent(students[i].getStudentID(), 0);
-                            }
-                        }
-
-                    }
                     //student is already enrolled in one or more classes
-                    else {
                         //go through list of classes student current enrolled in
                         int numCurrentlyEnrolled = currentlyEnrolled.size();
                         if(extensions){
@@ -292,7 +277,7 @@ public class CS340ProgrammingProject {
                                 }
                             }
                         }
-                        else{
+                            if(foundClass!= null && foundClass.getNumberSections() > 0 && foundClass.getEnrollmentLimit()>foundClass.getEnrolledStudents()[0].size()){
                             boolean canEnroll = true;
                             Class wantToEnroll = findClass(classToEnroll,classes);
                             if(wantToEnroll!=null) {
@@ -318,13 +303,10 @@ public class CS340ProgrammingProject {
                                     }
                                 }
 
+                                }
                             }
                         }
-                    }
-                }
-
             }
-        }
 
         if(extensions){
             //System.out.println("Course" + "\t" + " "Section" + "\t" + "Room" + "\t" + "Teacher" + "\t" + "Time" + "\t" + "Students");
