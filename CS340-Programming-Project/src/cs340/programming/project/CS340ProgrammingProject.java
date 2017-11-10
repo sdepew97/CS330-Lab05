@@ -58,10 +58,10 @@ public class CS340ProgrammingProject {
         //inputFiles(constraints, student_prefs);
 
         //Paths of the files to read
-        //constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/demo_constraints.txt");
-        //student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/demo_studentprefs.txt");
-        constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
-        student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
+        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/demo_constraints.txt");
+        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/demo_studentprefs.txt");
+        //constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
+        //student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
         constraints_scanner = new Scanner(constraints);
         student_prefs_scanner = new Scanner(student_prefs);
 
@@ -112,8 +112,10 @@ public class CS340ProgrammingProject {
                 ArrayList<Integer> prof_list = new ArrayList<>();
                 int num_sections = 0;
                 while(class_scanner.hasNext()){
-                    prof_list.add(class_scanner.nextInt());
+                    int prof_id = class_scanner.nextInt();
+                    prof_list.add(prof_id);
                     num_sections++;
+                    teachingTimes.put(prof_id, new ArrayList<Integer>());
                 }
                 class_queue.add(new Class(class_id, num_sections, prof_list, enrollment_limit));
             }
@@ -184,6 +186,7 @@ public class CS340ProgrammingProject {
                                     currentClass.setSingleSectionTime(i, currentTime);
                                     currentClass.setSingleSectionRoom(i, room.getRoomName());
                                     currentClass.setSingleSectionProfessor(i, currentProf);
+                                    teachingTimes.get(currentProf).add(currentTime);
                                     room.addOccupiedTime(currentTime);
                                     hasRoom = true;
                                     scheduledSection = true;
