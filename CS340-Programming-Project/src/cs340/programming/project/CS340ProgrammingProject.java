@@ -60,8 +60,10 @@ public class CS340ProgrammingProject {
         //Paths of the files to read
         //constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/demo_constraints.txt");
         //student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/demo_studentprefs.txt");
-        constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
-        student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
+        //constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
+        //student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
+        constraints = new File(args[0]);
+        student_prefs = new File(args[1]);
         constraints_scanner = new Scanner(constraints);
         student_prefs_scanner = new Scanner(student_prefs);
 
@@ -353,7 +355,7 @@ public class CS340ProgrammingProject {
             }
         }
         else{
-            PrintStream out = new PrintStream(new FileOutputStream("/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"));
+            PrintStream out = new PrintStream(new FileOutputStream(args[2])); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
             System.setOut(out);
             System.out.println("Course\tRoom\tTeacher\tTime\tStudents");
             for(int i = 0; i < classes.length; i++){
