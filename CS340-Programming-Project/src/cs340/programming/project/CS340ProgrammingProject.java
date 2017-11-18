@@ -52,18 +52,20 @@ public class CS340ProgrammingProject {
 
     //main function
     public static void main(String[] args) throws FileNotFoundException {
+        //long startTime = System.currentTimeMillis(); //got information from stack overflow
+
         input = new Scanner(System.in);
 
         //Allow the user to input file paths
         //inputFiles(constraints, student_prefs);
 
         //Paths of the files to read
-        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/demo_constraints.txt");
-        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/demo_studentprefs.txt");
+        //constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/demo_constraints.txt");
+        //student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/demo_studentprefs.txt");
         //constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
         //student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
-        //constraints = new File(args[0]);
-        //student_prefs = new File(args[1]);
+        constraints = new File(args[0]);
+        student_prefs = new File(args[1]);
         constraints_scanner = new Scanner(constraints);
         student_prefs_scanner = new Scanner(student_prefs);
 
@@ -358,7 +360,9 @@ public class CS340ProgrammingProject {
             }
         }
         else{
-            PrintStream out = new PrintStream(new FileOutputStream("C:/Users/Arthur/Documents/NetBeansProjects/programOutput.txt")); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
+            //PrintStream out = new PrintStream(new FileOutputStream("C:/Users/Arthur/Documents/NetBeansProjects/programOutput.txt")); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
+            PrintStream originalOut = System.out;
+            PrintStream out = new PrintStream(new FileOutputStream(args[2]));
             System.setOut(out);
             System.out.println("Course\tRoom\tTeacher\tTime\tStudents");
             for(int i = 0; i < classes.length; i++){
@@ -373,7 +377,28 @@ public class CS340ProgrammingProject {
                             + currentClass.getSectionTimes()[0] + "\t" + enrolled_students);
                 }
             }
+            //reset output
+            System.setOut(originalOut);
         }
+
+        if(basic)
+        {
+            int totalStudentsEnrolled = 0;
+
+            for(int i=0; i<classes.length; i++)
+            {
+                if(classes[i].getNumberSections()>0 && classes[i].getEnrolledStudents()[0].size()>0) {
+                    totalStudentsEnrolled += classes[i].getEnrolledStudents()[0].size();
+                }
+            }
+
+            System.out.println("Student Preference Value: " + (totalStudentsEnrolled));
+            System.out.println("Best Case Student Value: " + (4*num_students));
+        }
+
+        //long finishTime = System.currentTimeMillis();
+
+        //System.out.println("That took " + (finishTime - startTime) + " milliseconds");
     }
 
 
@@ -430,7 +455,7 @@ public class CS340ProgrammingProject {
         int currentCapacity = rooms[index].getRoomCapacity();
         while(currentCapacity != capacity){
             if(end - start == 1){
-                if(currentCapacity < capacity){
+                if(currentCapacity >= capacity){
                     return index;
                 }
                 while(currentCapacity < capacity && index < rooms.length){
