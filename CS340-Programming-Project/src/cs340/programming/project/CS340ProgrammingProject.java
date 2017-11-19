@@ -366,7 +366,7 @@ public class CS340ProgrammingProject {
             System.setOut(originalOut);
         }
         else{
-            PrintStream out = new PrintStream(new FileOutputStream("/Users/Sarah/Desktop/cs340/project/haverford/OUTPUT.txt")); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
+            PrintStream out = new PrintStream(new FileOutputStream("/Users/Sarah/Desktop/cs340/project/haverford/output_test.txt")); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
             PrintStream originalOut = System.out;
             //PrintStream out = new PrintStream(new FileOutputStream(args[2]));
             System.setOut(out);
@@ -506,3 +506,5 @@ public class CS340ProgrammingProject {
     }
 
 }
+
+//testing git
