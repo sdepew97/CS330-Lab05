@@ -280,7 +280,7 @@ public class CS340ProgrammingProject {
                         int numCurrentlyEnrolled = currentlyEnrolled.size();
                         if(extensions) {
                             //boolean if the student can enroll in the class
-                            boolean canEnroll = false;
+                            boolean canEnroll = true;
                             Class wantToEnroll = findClass(classToEnroll,classes);
                             int numWantToEnrollSections = wantToEnroll.getNumberSections();
 
@@ -290,14 +290,13 @@ public class CS340ProgrammingProject {
                                         Class thisClass = findClass(currentlyEnrolled.get(k),classes);
                                         if(thisClass != null && thisClass.getSectionTimes().length != 0){
                                             if(wantToEnroll.getSectionTimes().length != 0&&wantToEnroll.getEnrollmentLimit()>wantToEnroll.getEnrolledStudents()[p].size()) {
-                                                Integer timeToCheck = thisClass.getSectionTimes()[p];
-                                                if (!wantToEnroll.getSectionTimes()[p].equals(timeToCheck)) {
-                                                    canEnroll = true;
-                                                    break;
+                                                for(int l = 0; l < thisClass.getNumberSections();l++){    
+                                                    Integer timeToCheck = thisClass.getSectionTimes()[l];
+                                                    if (wantToEnroll.getSectionTimes()[p].equals(timeToCheck)) {
+                                                        canEnroll = false;
+                                                        break;
+                                                    }
                                                 }
-                                            }
-                                            else {
-                                                canEnroll = false;
                                             }
                                         }
                                     }
