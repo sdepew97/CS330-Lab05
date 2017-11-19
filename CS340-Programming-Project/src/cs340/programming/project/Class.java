@@ -88,7 +88,7 @@ public class Class implements Comparable<Class>{
     @Override
     public int compareTo(Class c)
     {
-        return this.getNumberSections()*this.getEnrollmentLimit() - c.getNumberSections()*c.getEnrollmentLimit();
+        return c.getNumberSections()*c.getEnrollmentLimit() - this.getNumberSections()*this.getEnrollmentLimit();
     }
 
     @Override

@@ -22,7 +22,7 @@ public class CS340ProgrammingProject {
 
     //fields of the class
     //variables for file input
-    private static boolean extensions = false;
+    private static boolean extensions = true;
     private static boolean basic = true;
     private static Scanner input;
     private static Scanner constraints_scanner;
@@ -52,7 +52,7 @@ public class CS340ProgrammingProject {
 
     //main function
     public static void main(String[] args) throws FileNotFoundException {
-        //long startTime = System.currentTimeMillis(); //got information from stack overflow
+        long startTime = System.currentTimeMillis(); //got information from stack overflow
 
         input = new Scanner(System.in);
 
@@ -64,8 +64,10 @@ public class CS340ProgrammingProject {
         //student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/demo_studentprefs.txt");
         //constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
         //student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
-        constraints = new File(args[0]);
-        student_prefs = new File(args[1]);
+        constraints = new File("/Users/Sarah/Desktop/cs340/project/haverford/const_haverford_test.txt");
+        student_prefs = new File("/Users/Sarah/Desktop/cs340/project/haverford/pref_haverford_test.txt");
+        //constraints = new File(args[0]);
+        //student_prefs = new File(args[1]);
         constraints_scanner = new Scanner(constraints);
         student_prefs_scanner = new Scanner(student_prefs);
 
@@ -204,6 +206,7 @@ public class CS340ProgrammingProject {
                     Random random = new Random();
                     int randomTime = random.nextInt(class_times.length);
                     int currentTime = randomTime;
+                    int numIterations = 0;
                     //check if time was actually assigned (filled with -1 at the start which is then replaced with a time
                     while (currentClass.getSectionTimes()[i] == -1) {
                         //pick an entry into the times array at random
@@ -211,8 +214,8 @@ public class CS340ProgrammingProject {
                             boolean hasRoom = false;
                             int currentTry = findRoom(currentClass.getEnrollmentLimit(),rooms);
                             Room room = rooms[currentTry];
-                            while(!hasRoom){
-                                if(!room.isOccupied(currentTime)){
+                            while(!hasRoom && numIterations<rooms.length-1){
+                                if(!room.isOccupied(currentTime)) {
                                     currentClass.setSingleSectionTime(i, currentTime);
                                     currentClass.setSingleSectionRoom(i, room.getRoomName());
                                     currentClass.setSingleSectionProfessor(i, currentProf);
@@ -221,17 +224,21 @@ public class CS340ProgrammingProject {
                                     hasRoom = true;
                                     scheduledSection = true;
                                 }
+
                                 if(currentTry == rooms.length - 1){
                                     break;
                                 }
                                 currentTry++;
+                                numIterations++;
                                 room = rooms[currentTry];
                             }
                         }
                         currentTime++;
+
                         if(currentTime == class_times.length){
                             currentTime = 0;
                         }
+
                         if(currentTime == randomTime){
                             break;
                         }
@@ -360,9 +367,9 @@ public class CS340ProgrammingProject {
             }
         }
         else{
-            //PrintStream out = new PrintStream(new FileOutputStream("C:/Users/Arthur/Documents/NetBeansProjects/programOutput.txt")); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
+            PrintStream out = new PrintStream(new FileOutputStream("/Users/Sarah/Desktop/cs340/project/haverford/schedule_test.txt")); //C:/Users/Arthur/Documents/NetBeansProjects/programOutput.txt"
             PrintStream originalOut = System.out;
-            PrintStream out = new PrintStream(new FileOutputStream(args[2]));
+            //PrintStream out = new PrintStream(new FileOutputStream(args[2]));
             System.setOut(out);
             System.out.println("Course\tRoom\tTeacher\tTime\tStudents");
             for(int i = 0; i < classes.length; i++){
@@ -396,9 +403,9 @@ public class CS340ProgrammingProject {
             System.out.println("Best Case Student Value: " + (4*num_students));
         }
 
-        //long finishTime = System.currentTimeMillis();
+        long finishTime = System.currentTimeMillis();
 
-        //System.out.println("That took " + (finishTime - startTime) + " milliseconds");
+        System.out.println("That took " + (finishTime - startTime) + " milliseconds");
     }
 
 
