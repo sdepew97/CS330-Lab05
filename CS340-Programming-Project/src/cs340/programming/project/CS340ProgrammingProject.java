@@ -22,7 +22,7 @@ public class CS340ProgrammingProject {
 
     //fields of the class
     //variables for file input
-    private static boolean extensions = false;
+    private static boolean extensions = true;
     private static boolean basic = true;
     private static Scanner input;
     private static Scanner constraints_scanner;
@@ -60,12 +60,12 @@ public class CS340ProgrammingProject {
         //inputFiles(constraints, student_prefs);
 
         //Paths of the files to read
-        //constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/demo_constraints.txt");
-        //student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/demo_studentprefs.txt");
+        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/const_haverford_test.txt");
+        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/pref_haverford_test.txt");
         //constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
         //student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
-        constraints = new File(args[0]);
-        student_prefs = new File(args[1]);
+        //constraints = new File(args[0]);
+        //student_prefs = new File(args[1]);
         constraints_scanner = new Scanner(constraints);
         student_prefs_scanner = new Scanner(student_prefs);
 
@@ -360,9 +360,9 @@ public class CS340ProgrammingProject {
             }
         }
         else{
-            //PrintStream out = new PrintStream(new FileOutputStream("C:/Users/Arthur/Documents/NetBeansProjects/programOutput.txt")); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
+            PrintStream out = new PrintStream(new FileOutputStream("C:/Users/Arthur/Documents/NetBeansProjects/programOutput.txt")); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
             PrintStream originalOut = System.out;
-            PrintStream out = new PrintStream(new FileOutputStream(args[2]));
+//          PrintStream out = new PrintStream(new FileOutputStream(args[2]))
             System.setOut(out);
             System.out.println("Course\tRoom\tTeacher\tTime\tStudents");
             for(int i = 0; i < classes.length; i++){
@@ -454,6 +454,9 @@ public class CS340ProgrammingProject {
         int index = (start + end)/2;
         int currentCapacity = rooms[index].getRoomCapacity();
         while(currentCapacity != capacity){
+            if(capacity == 50){
+                int x = 5;
+            }
             if(end - start == 1){
                 if(currentCapacity >= capacity){
                     return index;
