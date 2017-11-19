@@ -349,7 +349,7 @@ public class CS340ProgrammingProject {
             PrintStream out = new PrintStream(new FileOutputStream("/Users/Sarah/Desktop/cs340/project/haverford/output_test.txt"));
             PrintStream originalOut = System.out;
             System.setOut(out);
-            System.out.println("Course\tRoom\tTeacher\tTime\tStudents");
+            System.out.println("Course\tSection\tRoom\tTeacher\tTime\tStudents");
             for(int i = 0; i < classes.length; i++){
                 currentClass = classes[i];
                 for(int j = 0; j < currentClass.getNumberSections(); j++){
@@ -358,8 +358,8 @@ public class CS340ProgrammingProject {
                     for(int k = 0; k < section_students.size(); k++){
                         enrolled_students = enrolled_students + section_students.get(k) + " ";
                     }
-                    System.out.println(currentClass.getClassID() + "\t" + j + "\t" + currentClass.getSectionRooms()[0] + "\t"
-                            + currentClass.getSectionTimes()[0] + "\t" + enrolled_students);
+                    System.out.println(currentClass.getClassID() + "\t" + (j+1) + "\t" + currentClass.getSectionRooms()[j] + "\t" + currentClass.getProfessors().get(j) + "\t"
+                            + currentClass.getSectionTimes()[j] + "\t" + enrolled_students);
                 }
             }
             //reset output
@@ -387,7 +387,16 @@ public class CS340ProgrammingProject {
             System.setOut(originalOut);
         }
 
-        if(!extensions)
+        if(extensions)
+        {
+            //best case value
+
+
+
+            //actual value
+        }
+
+        else
         {
             int totalStudentsEnrolled = 0;
 
