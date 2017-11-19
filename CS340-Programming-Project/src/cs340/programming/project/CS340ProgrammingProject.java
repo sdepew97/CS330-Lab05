@@ -356,7 +356,7 @@ public class CS340ProgrammingProject {
                     String enrolled_students = "";
                     ArrayList<Integer> section_students = currentClass.getEnrolledStudents()[j];
                     for(int k = 0; k < section_students.size(); k++){
-                        enrolled_students = enrolled_students + section_students.get(k);
+                        enrolled_students = enrolled_students + section_students.get(k) + " ";
                     }
                     System.out.println(currentClass.getClassID() + "\t" + j + "\t" + currentClass.getSectionRooms()[0] + "\t"
                             + currentClass.getSectionTimes()[0] + "\t" + enrolled_students);
