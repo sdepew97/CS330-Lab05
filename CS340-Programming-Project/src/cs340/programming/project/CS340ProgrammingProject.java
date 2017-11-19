@@ -22,8 +22,8 @@ public class CS340ProgrammingProject {
 
     //fields of the class
     //variables for file input
-    private static boolean extensions = true;
-    private static boolean basic = true;
+    private static boolean extensions = false;
+    private static boolean basic = false;
     private static Scanner input;
     private static Scanner constraints_scanner;
     private static Scanner student_prefs_scanner;
@@ -62,8 +62,8 @@ public class CS340ProgrammingProject {
         //Paths of the files to read
         //constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/const_haverford_test.txt");
         //student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/pref_haverford_test.txt");
-        constraints = new File("/Users/Sarah/Desktop/cs340/project/haverford/const_haverford_test.txt");
-        student_prefs = new File("/Users/Sarah/Desktop/cs340/project/haverford/pref_haverford_test.txt");
+        constraints = new File("/Users/Sarah/Desktop/cs340/project/haverford/haverfordConstraints.txt");
+        student_prefs = new File("/Users/Sarah/Desktop/cs340/project/haverford/haverfordPrefs.txt");
         //constraints = new File(args[0]);
         //student_prefs = new File(args[1]);
         constraints_scanner = new Scanner(constraints);
@@ -207,7 +207,7 @@ public class CS340ProgrammingProject {
                     int randomTime = random.nextInt(class_times.length);
                     int currentTime = randomTime;
                     //check if time was actually assigned (filled with -1 at the start which is then replaced with a time
-                    while (currentClass.getSectionTimes()[i] == -1) {
+                    while (currentClass.getSectionTimes().get(i) == -1) {
                         //pick an entry into the times array at random
                         if(!teachingTimes.get(currentProf).contains(currentTime)){
                             boolean hasRoom = false;
@@ -235,12 +235,13 @@ public class CS340ProgrammingProject {
                             currentTime = 0;
                         }
                         if(currentTime == randomTime){
+                            scheduledSection = true;
                             break;
                         }
                     }
                 }
             }
-            classes[classProcessed]=currentClass;
+            classes[classProcessed] = currentClass;
             classProcessed++;
         }
 
@@ -288,11 +289,11 @@ public class CS340ProgrammingProject {
                                 for(int p=0; p<numWantToEnrollSections; p++) {
                                     for (int k = 0; k < numCurrentlyEnrolled; k++) {
                                         Class thisClass = findClass(currentlyEnrolled.get(k),classes);
-                                        if(thisClass != null && thisClass.getSectionTimes().length != 0){
-                                            if(wantToEnroll.getSectionTimes().length != 0&&wantToEnroll.getEnrollmentLimit()>wantToEnroll.getEnrolledStudents()[p].size()) {
+                                        if(thisClass != null && thisClass.getSectionTimes().size() != 0){
+                                            if(wantToEnroll.getSectionTimes().size() != 0&&wantToEnroll.getEnrollmentLimit()>wantToEnroll.getEnrolledStudents()[p].size()) {
                                                 for(int l = 0; l < thisClass.getNumberSections();l++){    
-                                                    Integer timeToCheck = thisClass.getSectionTimes()[l];
-                                                    if (wantToEnroll.getSectionTimes()[p].equals(timeToCheck)) {
+                                                    Integer timeToCheck = thisClass.getSectionTimes().get(l);
+                                                    if (wantToEnroll.getSectionTimes().get(p).equals(timeToCheck)) {
                                                         canEnroll = false;
                                                         break;
                                                     }
@@ -303,7 +304,7 @@ public class CS340ProgrammingProject {
                                 }
                                 if (canEnroll) {
                                     students[i].enrollStudent(classToEnroll, 0);
-                                    if(wantToEnroll.getSectionTimes().length != 0) {
+                                    if(wantToEnroll.getSectionTimes().size() != 0) {
                                         wantToEnroll.enrollStudent(students[i].getStudentID(), 0);
                                     }
                                 }
@@ -316,10 +317,10 @@ public class CS340ProgrammingProject {
                                 if(wantToEnroll!=null) {
                                     for (int k = 0; k < numCurrentlyEnrolled; k++) {
                                         Class thisClass = findClass(currentlyEnrolled.get(k),classes);
-                                        if(thisClass != null && thisClass.getSectionTimes().length != 0){
-                                            if(wantToEnroll.getSectionTimes().length != 0) {
-                                                Integer timeToCheck = thisClass.getSectionTimes()[0];
-                                                if (wantToEnroll.getSectionTimes()[0].equals(timeToCheck)) {
+                                        if(thisClass != null && thisClass.getSectionTimes().size() != 0){
+                                            if(wantToEnroll.getSectionTimes().size() != 0) {
+                                                Integer timeToCheck = thisClass.getSectionTimes().get(0);
+                                                if (wantToEnroll.getSectionTimes().get(0).equals(timeToCheck)) {
                                                     canEnroll = false;
                                                     break;
                                                 }
@@ -331,7 +332,7 @@ public class CS340ProgrammingProject {
                                     }
                                     if (canEnroll) {
                                         students[i].enrollStudent(classToEnroll, 0);
-                                        if(wantToEnroll.getSectionTimes().length != 0) {
+                                        if(wantToEnroll.getSectionTimes().size() != 0) {
                                             wantToEnroll.enrollStudent(students[i].getStudentID(), 0);
                                         }
                                     }
@@ -358,15 +359,15 @@ public class CS340ProgrammingProject {
                     for(int k = 0; k < section_students.size(); k++){
                         enrolled_students = enrolled_students + section_students.get(k) + " ";
                     }
-                    System.out.println(currentClass.getClassID() + "\t" + (j+1) + "\t" + currentClass.getSectionRooms()[j] + "\t" + currentClass.getProfessors().get(j) + "\t"
-                            + currentClass.getSectionTimes()[j] + "\t" + enrolled_students);
+                    System.out.println(currentClass.getClassID() + "\t" + (j+1) + "\t" + currentClass.getSectionRooms().get(j) + "\t" + currentClass.getProfessors().get(j) + "\t"
+                            + currentClass.getSectionTimes().get(j) + "\t" + enrolled_students);
                 }
             }
             //reset output
             System.setOut(originalOut);
         }
         else{
-            PrintStream out = new PrintStream(new FileOutputStream("/Users/Sarah/Desktop/cs340/project/haverford/output_test.txt")); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
+            PrintStream out = new PrintStream(new FileOutputStream("/Users/Sarah/Desktop/cs340/project/haverford/output_test_output.txt")); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
             PrintStream originalOut = System.out;
             //PrintStream out = new PrintStream(new FileOutputStream(args[2]));
             System.setOut(out);
@@ -379,8 +380,8 @@ public class CS340ProgrammingProject {
                     for (int k = 0; k < section_students.size(); k++) {
                         enrolled_students = enrolled_students + section_students.get(k) + " ";
                     }
-                    System.out.println(currentClass.getClassID() + "\t" + currentClass.getSectionRooms()[0] + "\t" + currentClass.getProfessors().get(0) + "\t"
-                            + currentClass.getSectionTimes()[0] + "\t" + enrolled_students);
+                    System.out.println(currentClass.getClassID() + "\t" + currentClass.getSectionRooms().get(0) + "\t" + currentClass.getProfessors().get(0) + "\t"
+                            + currentClass.getSectionTimes().get(0) + "\t" + enrolled_students);
                 }
             }
             //reset output
@@ -427,7 +428,9 @@ public class CS340ProgrammingProject {
 
     static void readLinesTimes(Object[] array, Scanner scanner, int num_lines_to_read){
         for(int i = 0; i < num_lines_to_read; i++){
-            array[i] = scanner.nextLine().substring(0,3).trim();
+            //System.out.println(scanner.nextLine().substring(0,3).trim());
+            String nextLine = scanner.nextLine();
+            array[i] = nextLine.substring(1,nextLine.length()).trim();
         }
     }
 

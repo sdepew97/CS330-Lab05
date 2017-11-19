@@ -2,29 +2,31 @@ package cs340.programming.project;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Class implements Comparable<Class>{
     //data fields
     private int classID;
     private int numberSections;
-    private Integer[] sectionTimes; //we use the section number as an index into the array to get the time of that section
-    private String[] sectionRooms;
+    private ArrayList<Integer> sectionTimes; //we use the section number as an index into the array to get the time of that section
+    private ArrayList<String> sectionRooms;
     private ArrayList<Integer> professors; //who can teach the sections
     private int enrollmentLimit;
     private ArrayList<Integer>[] enrolledStudents;
-    private int[] whoTeachesSection;
+    private ArrayList<Integer> whoTeachesSection;
 
     public Class(int classID, int numberSections, ArrayList<Integer> professors, int enrollmentLimit)
     {
         this.classID = classID;
         this.numberSections = numberSections;
-        this.sectionTimes = new Integer[numberSections];
-        Arrays.fill(this.sectionTimes, -1); //start all values at -1
-        this.sectionRooms = new String[numberSections];
+        this.sectionTimes = new ArrayList<>(numberSections);
+        Collections.fill(this.sectionTimes, -1); //start all values at -1
+        this.sectionRooms = new ArrayList<>(numberSections);
         this.professors = professors;
         this.enrollmentLimit = enrollmentLimit;
         this.enrolledStudents = new ArrayList[numberSections];
-        this.whoTeachesSection = new int[numberSections];
+        this.whoTeachesSection = new ArrayList<>(numberSections);
         for(int i = 0; i < numberSections; i++){
             enrolledStudents[i] = new ArrayList<Integer>();
         }
@@ -41,12 +43,12 @@ public class Class implements Comparable<Class>{
         return numberSections;
     }
 
-    public Integer[] getSectionTimes()
+    public ArrayList<Integer> getSectionTimes()
     {
         return sectionTimes;
     }
 
-    public String[] getSectionRooms()
+    public ArrayList<String> getSectionRooms()
     {
         return sectionRooms;
     }
@@ -68,15 +70,15 @@ public class Class implements Comparable<Class>{
 
     public void setSingleSectionTime(int index, Integer sectionTime)
     {
-        this.sectionTimes[index] = sectionTime;
+        this.sectionTimes.set(index, sectionTime);
     }
     
     public void setSingleSectionRoom(int index, String sectionRoom){
-        this.sectionRooms[index] = sectionRoom;
+        this.sectionRooms.set(index, sectionRoom);
     }
     
     public void setSingleSectionProfessor(int index, int profID){
-        this.whoTeachesSection[index] = profID;
+        this.whoTeachesSection.set(index, profID);
     }
 
     //method to enroll a student in a class
@@ -96,8 +98,8 @@ public class Class implements Comparable<Class>{
         return "Class{" +
                 "classID:" + classID +
                 ", numberSections:" + numberSections +
-                ", sectionTimes:" + CS340ProgrammingProject.printArray(sectionTimes) +
-                ", sectionRooms:" + CS340ProgrammingProject.printArray(sectionRooms) +
+                ", sectionTimes:" + CS340ProgrammingProject.printArray(sectionTimes.toArray()) +
+                ", sectionRooms:" + CS340ProgrammingProject.printArray(sectionRooms.toArray()) +
                 ", professors:" + CS340ProgrammingProject.printArray(professors.toArray()) +
                 ", enrollmentLimit:" + enrollmentLimit +
                 ", enrolledStudents:" + enrolledStudents +
