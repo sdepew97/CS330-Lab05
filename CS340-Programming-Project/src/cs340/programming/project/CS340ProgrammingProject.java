@@ -60,10 +60,10 @@ public class CS340ProgrammingProject {
         //inputFiles(constraints, student_prefs);
 
         //Paths of the files to read
-        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/const_haverford_test.txt");
-        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/pref_haverford_test.txt");
-        //constraints = new File("/Users/Sarah/Desktop/cs340Project/haverfordConstraints.txt");
-        //student_prefs = new File("/Users/Sarah/Desktop/cs340Project/haverfordStudentPrefs.txt");
+        //constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/const_haverford_test.txt");
+        //student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/pref_haverford_test.txt");
+        constraints = new File("/Users/Sarah/Desktop/cs340/project/haverford/const_haverford_test.txt");
+        student_prefs = new File("/Users/Sarah/Desktop/cs340/project/haverford/pref_haverford_test.txt");
         //constraints = new File(args[0]);
         //student_prefs = new File(args[1]);
         constraints_scanner = new Scanner(constraints);
@@ -346,7 +346,10 @@ public class CS340ProgrammingProject {
         }
 
         if(extensions){
-            //System.out.println("Course" + "\t" + " "Section" + "\t" + "Room" + "\t" + "Teacher" + "\t" + "Time" + "\t" + "Students");
+            PrintStream out = new PrintStream(new FileOutputStream("/Users/Sarah/Desktop/cs340/project/haverford/output_test.txt"));
+            PrintStream originalOut = System.out;
+            System.setOut(out);
+            System.out.println("Course\tRoom\tTeacher\tTime\tStudents");
             for(int i = 0; i < classes.length; i++){
                 currentClass = classes[i];
                 for(int j = 0; j < currentClass.getNumberSections(); j++){
@@ -359,9 +362,11 @@ public class CS340ProgrammingProject {
                             + currentClass.getSectionTimes()[0] + "\t" + enrolled_students);
                 }
             }
+            //reset output
+            System.setOut(originalOut);
         }
         else{
-            PrintStream out = new PrintStream(new FileOutputStream("C:/Users/Arthur/Documents/NetBeansProjects/Output.txt")); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
+            PrintStream out = new PrintStream(new FileOutputStream("/Users/Sarah/Desktop/cs340/project/haverford/OUTPUT.txt")); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
             PrintStream originalOut = System.out;
             //PrintStream out = new PrintStream(new FileOutputStream(args[2]));
             System.setOut(out);
@@ -382,7 +387,7 @@ public class CS340ProgrammingProject {
             System.setOut(originalOut);
         }
 
-        if(basic)
+        if(!extensions)
         {
             int totalStudentsEnrolled = 0;
 
