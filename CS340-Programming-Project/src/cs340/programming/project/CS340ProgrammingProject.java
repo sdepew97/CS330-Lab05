@@ -60,12 +60,12 @@ public class CS340ProgrammingProject {
         //inputFiles(constraints, student_prefs);
 
         //Paths of the files to read
-        //constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/const_haverford_test.txt");
-        //student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/pref_haverford_test.txt");
+        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/const_haverford_test.txt");
+        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/pref_haverford_test.txt");
         //constraints = new File("/Users/Sarah/Desktop/cs340/project/haverford/haverfordConstraints.txt");
         //student_prefs = new File("/Users/Sarah/Desktop/cs340/project/haverford/haverfordPrefs.txt");
-        constraints = new File(args[0]);
-        student_prefs = new File(args[1]);
+        //constraints = new File(args[0]);
+        //student_prefs = new File(args[1]);
         constraints_scanner = new Scanner(constraints);
         student_prefs_scanner = new Scanner(student_prefs);
 
@@ -259,6 +259,7 @@ public class CS340ProgrammingProject {
                 Class foundClass = findClass(classToEnroll, classes);
                 if(foundClass!= null && foundClass.getNumberSections() > 0){
                     ArrayList<Integer> currentlyEnrolled = students[i].getEnrolledClassList();
+                    ArrayList<Integer> currentlyEnrolledStudents = students[i].getSectionOfClass();
 
                     //make sure classToEnroll has no conflicts with classes currently enrolled
                     /*
@@ -284,28 +285,30 @@ public class CS340ProgrammingProject {
                             boolean canEnroll = true;
                             Class wantToEnroll = findClass(classToEnroll,classes);
                             int numWantToEnrollSections = wantToEnroll.getNumberSections();
-
+                            int classSection = -1;
                             if(wantToEnroll!=null) {
                                 for(int p=0; p<numWantToEnrollSections; p++) {
                                     for (int k = 0; k < numCurrentlyEnrolled; k++) {
                                         Class thisClass = findClass(currentlyEnrolled.get(k),classes);
                                         if(thisClass != null && thisClass.getSectionTimes().length != 0){
-                                            if(wantToEnroll.getSectionTimes().length != 0&&wantToEnroll.getEnrollmentLimit()>wantToEnroll.getEnrolledStudents()[p].size()) {
-                                                for(int l = 0; l < thisClass.getNumberSections();l++){    
-                                                    Integer timeToCheck = thisClass.getSectionTimes()[l];
-                                                    if (wantToEnroll.getSectionTimes()[p].equals(timeToCheck)) {
-                                                        canEnroll = false;
-                                                        break;
-                                                    }
+                                            if(wantToEnroll.getSectionTimes().length != 0&&wantToEnroll.getEnrollmentLimit()>wantToEnroll.getEnrolledStudents()[p].size()) { 
+                                                Integer timeToCheck = thisClass.getSectionTimes()[currentlyEnrolledStudents.get(k)];
+                                                if (wantToEnroll.getSectionTimes()[p].equals(timeToCheck)) {
+                                                    canEnroll = false;
+                                                    break;
                                                 }
                                             }
                                         }
                                     }
+                                    if(canEnroll){
+                                        classSection = p;
+                                        break;
+                                    }
                                 }
                                 if (canEnroll) {
-                                    students[i].enrollStudent(classToEnroll, 0);
-                                    if(wantToEnroll.getSectionTimes().length != 0) {
-                                        wantToEnroll.enrollStudent(students[i].getStudentID(), 0);
+                                    students[i].enrollStudent(classToEnroll, classSection);
+                                    if(wantToEnroll.getSectionTimes().length != classSection) {
+                                        wantToEnroll.enrollStudent(students[i].getStudentID(), classSection);
                                     }
                                 }
                             }
@@ -347,9 +350,9 @@ public class CS340ProgrammingProject {
         }
 
         if(extensions){
-            //PrintStream out = new PrintStream(new FileOutputStream("/Users/Sarah/Desktop/cs340/project/haverford/output_test.txt"));
+            PrintStream out = new PrintStream(new FileOutputStream("C:/Users/Arthur/Documents/NetBeansProjects/programOutput.txt"));
             PrintStream originalOut = System.out;
-            PrintStream out = new PrintStream(new FileOutputStream(args[2]));
+            //PrintStream out = new PrintStream(new FileOutputStream(args[2]));
             System.setOut(out);
             System.out.println("Course\tSection\tRoom\tTeacher\tTime\tStudents");
             for(int i = 0; i < classes.length; i++){
@@ -370,9 +373,9 @@ public class CS340ProgrammingProject {
             System.setOut(originalOut);
         }
         else{
-            //PrintStream out = new PrintStream(new FileOutputStream("/Users/Sarah/Desktop/cs340/project/haverford/output_test_output.txt")); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
+            PrintStream out = new PrintStream(new FileOutputStream("C:/Users/Arthur/Documents/NetBeansProjects/programOutput.txt")); //"/Users/Sarah/Desktop/cs340/project/haverford/schedule.txt"
             PrintStream originalOut = System.out;
-            PrintStream out = new PrintStream(new FileOutputStream(args[2]));
+            //PrintStream out = new PrintStream(new FileOutputStream(args[2]));
             System.setOut(out);
             System.out.println("Course\tRoom\tTeacher\tTime\tStudents");
             for(int i = 0; i < classes.length; i++){
