@@ -60,8 +60,8 @@ public class CS340ProgrammingProject {
         //inputFiles(constraints, student_prefs);
 
         //Paths of the files to read
-        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/const_haverford_test.txt");
-        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/pref_haverford_test.txt");
+        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/constraints.txt");
+        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/prefs.txt");
         //constraints = new File("/Users/Sarah/Desktop/cs340/project/haverford/haverfordConstraints.txt");
         //student_prefs = new File("/Users/Sarah/Desktop/cs340/project/haverford/haverfordPrefs.txt");
         //constraints = new File(args[0]);
@@ -139,6 +139,7 @@ public class CS340ProgrammingProject {
             }
         }
         if(extensions){
+            constraints_scanner.nextLine();
             while(constraints_scanner.hasNext()){
                 String profPreferredTimes = constraints_scanner.nextLine();
                 Scanner prof_scanner = new Scanner(profPreferredTimes);
@@ -291,7 +292,13 @@ public class CS340ProgrammingProject {
                                     for (int k = 0; k < numCurrentlyEnrolled; k++) {
                                         Class thisClass = findClass(currentlyEnrolled.get(k),classes);
                                         if(thisClass != null && thisClass.getSectionTimes().length != 0){
-                                            if(wantToEnroll.getSectionTimes().length != 0&&wantToEnroll.getEnrollmentLimit()>wantToEnroll.getEnrolledStudents()[p].size()) { 
+                                            int wantToEnrolllimit = wantToEnroll.getEnrollmentLimit();
+                                            int wantToEnrollNumEnrolled = wantToEnroll.getEnrolledStudents()[p].size();
+                                            if(wantToEnroll.getSectionTimes().length != 0) {
+                                                if(wantToEnrolllimit<=wantToEnrollNumEnrolled){
+                                                    canEnroll = false;
+                                                    break;
+                                                }
                                                 Integer timeToCheck = thisClass.getSectionTimes()[currentlyEnrolledStudents.get(k)];
                                                 if (wantToEnroll.getSectionTimes()[p].equals(timeToCheck)) {
                                                     canEnroll = false;
@@ -307,7 +314,7 @@ public class CS340ProgrammingProject {
                                 }
                                 if (canEnroll) {
                                     students[i].enrollStudent(classToEnroll, classSection);
-                                    if(wantToEnroll.getSectionTimes().length != classSection) {
+                                    if(wantToEnroll.getSectionTimes().length != 0) {
                                         wantToEnroll.enrollStudent(students[i].getStudentID(), classSection);
                                     }
                                 }
