@@ -60,8 +60,8 @@ public class CS340ProgrammingProject {
         //inputFiles(constraints, student_prefs);
 
         //Paths of the files to read
-        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/const_haverford_test.txt");
-        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/pref_haverford_test.txt");
+        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/constraints.txt");
+        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/prefs.txt");
         //constraints = new File("/Users/Sarah/Desktop/cs340/project/haverford/haverfordConstraints.txt");
         //student_prefs = new File("/Users/Sarah/Desktop/cs340/project/haverford/haverfordPrefs.txt");
         //constraints = new File(args[0]);
@@ -362,7 +362,7 @@ public class CS340ProgrammingProject {
                 }
             }
                     //}
-                }
+        }
 
 
         if(extensions){
@@ -402,6 +402,7 @@ public class CS340ProgrammingProject {
                     for (int k = 0; k < section_students.size(); k++) {
                         enrolled_students = enrolled_students + section_students.get(k) + " ";
                     }
+                    int m = currentClass.getProfessors().get(0);
                     System.out.println(currentClass.getClassID() + "\t" + currentClass.getSectionRooms()[0] + "\t" + currentClass.getProfessors().get(0) + "\t"
                             + currentClass.getSectionTimes()[0] + "\t" + enrolled_students);
                 }
