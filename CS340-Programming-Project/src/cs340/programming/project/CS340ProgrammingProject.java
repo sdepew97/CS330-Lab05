@@ -22,7 +22,7 @@ public class CS340ProgrammingProject {
     //fields of the class
     //variables for file input
     private static boolean extensions = false;
-    private static boolean basic = true;
+    private static boolean basic = false;
     private static Scanner input;
     private static Scanner constraints_scanner;
     private static Scanner student_prefs_scanner;
@@ -178,8 +178,7 @@ public class CS340ProgrammingProject {
                     int currentProf = currentClass.getProfessors().get(i);
                     if(extensions){
                         boolean hasRoom = false;
-                        for (int j = 0; j < preferredTimes.get(currentProf).size(); j++)
-                        {
+                        for (int j = 0; j < preferredTimes.get(currentProf).size(); j++) {
                             int currentTime = preferredTimes.get(currentProf).get(j);
                             int currentTry = findRoom(currentClass.getEnrollmentLimit(),rooms);
                             Room room = rooms[currentTry];
@@ -193,11 +192,13 @@ public class CS340ProgrammingProject {
                                     hasRoom = true;
                                     scheduledSection = true;
                                 }
+                                if(currentTry == rooms.length - 1){
+                                    break;
+                                }
+
                                 currentTry++;
                                 room = rooms[currentTry];
                             }
-
-                            //mark time as tried
                         }
                     }
 
