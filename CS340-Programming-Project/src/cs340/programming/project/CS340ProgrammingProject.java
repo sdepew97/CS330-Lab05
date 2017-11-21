@@ -22,7 +22,7 @@ public class CS340ProgrammingProject {
 
     //fields of the class
     //variables for file input
-    private static boolean extensions = false;
+    private static boolean extensions = true;
     private static boolean basic = true;
     private static Scanner input;
     private static Scanner constraints_scanner;
@@ -139,6 +139,7 @@ public class CS340ProgrammingProject {
             }
         }
         if(extensions){
+            constraints_scanner.nextLine();
             while(constraints_scanner.hasNext()){
                 String profPreferredTimes = constraints_scanner.nextLine();
                 Scanner prof_scanner = new Scanner(profPreferredTimes);
