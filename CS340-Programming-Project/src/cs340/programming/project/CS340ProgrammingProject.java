@@ -249,7 +249,7 @@ public class CS340ProgrammingProject {
         Arrays.sort(classes, new ClassComparator());
 
         //enrolling students
-        if(extensions){
+        //if(extensions){
             ArrayList<Student> new_students = new ArrayList<Student>();
             for(int i = 0; i < students.length; i++){
                 new_students.add(students[i]);
@@ -319,22 +319,23 @@ public class CS340ProgrammingProject {
                             }
                         }
             }
-        }
+        //}
+        /*
             else {
                 for(int i = 0; i < 4; i++){
-                    for(int j =0;j < students.length;j++){
+                    for(int j =0;j < students.length; j++){
                         ArrayList<Integer> preferences = students[j].getPreferencesList();
                         //enroll class in preferences list
                         Integer classToEnroll = preferences.get(i); //getting first preferred class
                         Class foundClass = findClass(classToEnroll, classes);
                         if(foundClass!= null && foundClass.getNumberSections() > 0){
-                        ArrayList<Integer> currentlyEnrolled = students[i].getEnrolledClassList();
-                        int numCurrentlyEnrolled = currentlyEnrolled.size();
-                        if(foundClass.getEnrollmentLimit()>foundClass.getEnrolledStudents()[0].size()){
-                            boolean canEnroll = true;
-                            Class wantToEnroll = findClass(classToEnroll,classes);
-                            if(wantToEnroll!=null) {
-                                for (int k = 0; k < numCurrentlyEnrolled; k++) {
+                            ArrayList<Integer> currentlyEnrolled = students[j].getEnrolledClassList();
+                            int numCurrentlyEnrolled = currentlyEnrolled.size();
+                            if(foundClass.getEnrollmentLimit()>foundClass.getEnrolledStudents()[0].size()){
+                                boolean canEnroll = true;
+                                Class wantToEnroll = findClass(classToEnroll,classes);
+                                if(wantToEnroll!=null) {
+                                    for (int k = 0; k < numCurrentlyEnrolled; k++) {
                                     Class thisClass = findClass(currentlyEnrolled.get(k),classes);
                                     if(thisClass != null && thisClass.getSectionTimes().length != 0){
                                         if(wantToEnroll.getSectionTimes().length != 0) {
@@ -350,9 +351,9 @@ public class CS340ProgrammingProject {
                                     }
                                 }
                                 if (canEnroll) {
-                                    students[i].enrollStudent(classToEnroll, 0);
+                                    students[j].enrollStudent(classToEnroll, 0);
                                     if(wantToEnroll.getSectionTimes().length != 0) {
-                                        wantToEnroll.enrollStudent(students[i].getStudentID(), 0);
+                                        wantToEnroll.enrollStudent(students[j].getStudentID(), 0);
                                     }
                                 }
                             }
@@ -362,8 +363,7 @@ public class CS340ProgrammingProject {
                 }
             }
                     //}
-        }
-
+        }*/
 
         if(extensions){
             PrintStream out = new PrintStream(new FileOutputStream("C:/Users/Arthur/Documents/NetBeansProjects/programOutput.txt"));
