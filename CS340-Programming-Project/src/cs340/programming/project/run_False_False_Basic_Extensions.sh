@@ -9,7 +9,7 @@ arg3=$3
 dir=./
 
 ##jar file name
-jar_name= #you have to change this to the arguments for the input type you want to test
+jar_name=False_False_Basic_Extensions.jar 
 
 ## Perform some validation on input arguments, one example below
 if [ -z "$1" ] || [ -z "$2" ] || [ -z "$3" ]; then

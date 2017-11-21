@@ -20,8 +20,8 @@ public class CS340ProgrammingProject {
 
     //fields of the class
     //variables for file input
-    private static boolean extensions = true;
-    private static boolean basic = true;
+    private static boolean extensions = false;
+    private static boolean basic = false;
     private static Scanner input;
     private static Scanner constraints_scanner;
     private static Scanner student_prefs_scanner;
