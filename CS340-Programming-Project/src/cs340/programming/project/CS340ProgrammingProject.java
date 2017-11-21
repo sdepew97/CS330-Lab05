@@ -22,7 +22,7 @@ public class CS340ProgrammingProject {
 
     //fields of the class
     //variables for file input
-    private static boolean extensions = true;
+    private static boolean extensions = false;
     private static boolean basic = true;
     private static Scanner input;
     private static Scanner constraints_scanner;
@@ -60,8 +60,8 @@ public class CS340ProgrammingProject {
         //inputFiles(constraints, student_prefs);
 
         //Paths of the files to read
-        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/constraints.txt");
-        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/prefs.txt");
+        constraints = new File("C:/Users/Arthur/Documents/NetBeansProjects/const_haverford_test.txt");
+        student_prefs = new File("C:/Users/Arthur/Documents/NetBeansProjects/pref_haverford_test.txt");
         //constraints = new File("/Users/Sarah/Desktop/cs340/project/haverford/haverfordConstraints.txt");
         //student_prefs = new File("/Users/Sarah/Desktop/cs340/project/haverford/haverfordPrefs.txt");
         //constraints = new File(args[0]);
@@ -139,7 +139,6 @@ public class CS340ProgrammingProject {
             }
         }
         if(extensions){
-            constraints_scanner.nextLine();
             while(constraints_scanner.hasNext()){
                 String profPreferredTimes = constraints_scanner.nextLine();
                 Scanner prof_scanner = new Scanner(profPreferredTimes);
@@ -250,17 +249,24 @@ public class CS340ProgrammingProject {
         Arrays.sort(classes, new ClassComparator());
 
         //enrolling students
-        for(int i=0; i<students.length; i++)
-        {
-            ArrayList<Integer> preferences = students[i].getPreferencesList();
-            for(int j=0; j<preferences.size(); j++) //getting preferences per student
-            {
+        if(extensions){
+            ArrayList<Student> new_students = new ArrayList<Student>();
+            for(int i = 0; i < students.length; i++){
+                new_students.add(students[i]);
+            }
+            while(new_students.size()>0){
+                Student currentStudent = new_students.get(0);
+                new_students.remove(0);
+                ArrayList<Integer> preferences = currentStudent.getPreferencesList();
                 //enroll class in preferences list
-                Integer classToEnroll = preferences.get(j); //getting first preferred class
+                Integer classToEnroll = preferences.get(0); //getting first preferred class
+                if(preferences.size()>1){
+                    preferences.remove(0);
+                    new_students.add(currentStudent);
+                }
                 Class foundClass = findClass(classToEnroll, classes);
                 if(foundClass!= null && foundClass.getNumberSections() > 0){
-                    ArrayList<Integer> currentlyEnrolled = students[i].getEnrolledClassList();
-                    ArrayList<Integer> currentlyEnrolledStudents = students[i].getSectionOfClass();
+                    ArrayList<Integer> currentlyEnrolled = currentStudent.getEnrolledClassList();
 
                     //make sure classToEnroll has no conflicts with classes currently enrolled
                     /*
@@ -281,80 +287,83 @@ public class CS340ProgrammingProject {
                     //else {
                         //go through list of classes student current enrolled in
                         int numCurrentlyEnrolled = currentlyEnrolled.size();
-                        if(extensions) {
                             //boolean if the student can enroll in the class
                             boolean canEnroll = true;
                             Class wantToEnroll = findClass(classToEnroll,classes);
                             int numWantToEnrollSections = wantToEnroll.getNumberSections();
-                            int classSection = -1;
+
                             if(wantToEnroll!=null) {
                                 for(int p=0; p<numWantToEnrollSections; p++) {
+                                    canEnroll = true;
                                     for (int k = 0; k < numCurrentlyEnrolled; k++) {
                                         Class thisClass = findClass(currentlyEnrolled.get(k),classes);
                                         if(thisClass != null && thisClass.getSectionTimes().length != 0){
-                                            int wantToEnrolllimit = wantToEnroll.getEnrollmentLimit();
-                                            int wantToEnrollNumEnrolled = wantToEnroll.getEnrolledStudents()[p].size();
-                                            if(wantToEnroll.getSectionTimes().length != 0) {
-                                                if(wantToEnrolllimit<=wantToEnrollNumEnrolled){
-                                                    canEnroll = false;
-                                                    break;
-                                                }
-                                                Integer timeToCheck = thisClass.getSectionTimes()[currentlyEnrolledStudents.get(k)];
-                                                if (wantToEnroll.getSectionTimes()[p].equals(timeToCheck)) {
-                                                    canEnroll = false;
-                                                    break;
+                                            if(wantToEnroll.getSectionTimes().length != 0&&wantToEnroll.getEnrollmentLimit()>wantToEnroll.getEnrolledStudents()[p].size()) {
+                                                for(int l = 0; l < thisClass.getNumberSections();l++){    
+                                                    Integer timeToCheck = thisClass.getSectionTimes()[l];
+                                                    if (wantToEnroll.getSectionTimes()[p].equals(timeToCheck)) {
+                                                        canEnroll = false;
+                                                        break;
+                                                    }
                                                 }
                                             }
                                         }
-                                    }
-                                    if(canEnroll){
-                                        classSection = p;
-                                        break;
                                     }
                                 }
                                 if (canEnroll) {
-                                    students[i].enrollStudent(classToEnroll, classSection);
+                                    currentStudent.enrollStudent(classToEnroll, 0);
                                     if(wantToEnroll.getSectionTimes().length != 0) {
-                                        wantToEnroll.enrollStudent(students[i].getStudentID(), classSection);
+                                        wantToEnroll.enrollStudent(currentStudent.getStudentID(), 0);
                                     }
                                 }
                             }
                         }
-                        else {
-                            if(foundClass.getEnrollmentLimit()>foundClass.getEnrolledStudents()[0].size()){
-                                boolean canEnroll = true;
-                                Class wantToEnroll = findClass(classToEnroll,classes);
-                                if(wantToEnroll!=null) {
-                                    for (int k = 0; k < numCurrentlyEnrolled; k++) {
-                                        Class thisClass = findClass(currentlyEnrolled.get(k),classes);
-                                        if(thisClass != null && thisClass.getSectionTimes().length != 0){
-                                            if(wantToEnroll.getSectionTimes().length != 0) {
-                                                Integer timeToCheck = thisClass.getSectionTimes()[0];
-                                                if (wantToEnroll.getSectionTimes()[0].equals(timeToCheck)) {
-                                                    canEnroll = false;
-                                                    break;
-                                                }
-                                            }
-                                            else{
-                                                canEnroll = false;
-                                            }
-                                        }
-                                    }
-                                    if (canEnroll) {
-                                        students[i].enrollStudent(classToEnroll, 0);
+            }
+        }
+            else {
+                for(int i = 0; i < 4; i++){
+                    for(int j =0;j < students.length;j++){
+                        ArrayList<Integer> preferences = students[j].getPreferencesList();
+                        //enroll class in preferences list
+                        Integer classToEnroll = preferences.get(i); //getting first preferred class
+                        Class foundClass = findClass(classToEnroll, classes);
+                        if(foundClass!= null && foundClass.getNumberSections() > 0){
+                        ArrayList<Integer> currentlyEnrolled = students[i].getEnrolledClassList();
+                        int numCurrentlyEnrolled = currentlyEnrolled.size();
+                        if(foundClass.getEnrollmentLimit()>foundClass.getEnrolledStudents()[0].size()){
+                            boolean canEnroll = true;
+                            Class wantToEnroll = findClass(classToEnroll,classes);
+                            if(wantToEnroll!=null) {
+                                for (int k = 0; k < numCurrentlyEnrolled; k++) {
+                                    Class thisClass = findClass(currentlyEnrolled.get(k),classes);
+                                    if(thisClass != null && thisClass.getSectionTimes().length != 0){
                                         if(wantToEnroll.getSectionTimes().length != 0) {
-                                            wantToEnroll.enrollStudent(students[i].getStudentID(), 0);
+                                            Integer timeToCheck = thisClass.getSectionTimes()[0];
+                                            if (wantToEnroll.getSectionTimes()[0].equals(timeToCheck)) {
+                                                canEnroll = false;
+                                                break;
+                                            }
+                                        }
+                                        else{
+                                            canEnroll = false;
                                         }
                                     }
                                 }
-
+                                if (canEnroll) {
+                                    students[i].enrollStudent(classToEnroll, 0);
+                                    if(wantToEnroll.getSectionTimes().length != 0) {
+                                        wantToEnroll.enrollStudent(students[i].getStudentID(), 0);
+                                    }
+                                }
                             }
+
                         }
+                    }
+                }
+            }
                     //}
                 }
 
-            }
-        }
 
         if(extensions){
             PrintStream out = new PrintStream(new FileOutputStream("C:/Users/Arthur/Documents/NetBeansProjects/programOutput.txt"));
